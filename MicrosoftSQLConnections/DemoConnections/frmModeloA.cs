@@ -14,15 +14,17 @@ namespace DemoConnections
         public frmModeloA()
         {
             InitializeComponent();
-            //System.Diagnostics.Debug.Print("\r \r \r frmModeloA Iniciado");
+            AppStatus.Debugar.Status();
         }
 
+        #region ---> btnShow Simples
         private void btnShow_Click(object sender, EventArgs e)
         {
             if ((btnShow.Text == ("Show")) && (txtSenha.UseSystemPasswordChar == (true)))
             {
                 btnShow.Text = "NoShow";
                 txtSenha.UseSystemPasswordChar = false;
+
             }
             else if ((btnShow.Text == ("NoShow")) && (txtSenha.UseSystemPasswordChar == (false)))
             {
@@ -30,33 +32,64 @@ namespace DemoConnections
                 txtSenha.UseSystemPasswordChar = true;
             }
         }
+        #endregion ---> btnShow Simples
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        #region ---> btnLigaDesliga Completo
+       
         private enum LigarDesligar
         {
-            [DescriptionAttribute("Ligar Botao")]
             Ligar = 1,
-            [DescriptionAttribute("Desligar Botao")]
             Desligar = 2
         }
+       
         private void btnLigaDesliga_Click(object sender, EventArgs e)
         {
-
-           
-
-            if (btnLigaDesliga.Text == (LigarDesligar.Ligar.ToString()))
+            if ((Convert.ToInt32(btnLigaDesliga.Tag)) == ((int)LigarDesligar.Ligar))
             {
-                btnLigaDesliga.Text = (LigarDesligar.Desligar.ToString());
+                AppStatus.Debugar.EscreverDebugPrint("\r\r\r btnLigaDesliga = Liga");
+               
+                cboTimeOut.Enabled = (!true);
+                cboTimeOut.Items.Clear();
+                cboTimeOut.Text = (String.Empty);
+
+               
+                btnLigaDesliga.Text = Convert.ToString((LigarDesligar)(Convert.ToInt32(btnLigaDesliga.Tag)));
+                btnLigaDesliga.Tag = Convert.ToChar((LigarDesligar)2);
+
+                AppStatus.Debugar.EscreverDebugPrint("\r numeroItens [CLEAR] = " + Convert.ToString(cboTimeOut.Items.Count));
             }
-            else if (btnLigaDesliga.Text == (LigarDesligar.Desligar.ToString()))
+            else if ((Convert.ToInt32(btnLigaDesliga.Tag)) == ((int)LigarDesligar.Desligar))
             {
-                btnLigaDesliga.Text = (LigarDesligar.Ligar.ToString());
+                AppStatus.Debugar.EscreverDebugPrint("\r\r\r btnLigaDesliga = Desliga");
+
+                cboTimeOut.Enabled = (true);
+
+                btnLigaDesliga.Text = Convert.ToString((LigarDesligar)(Convert.ToInt32(btnLigaDesliga.Tag)));
+                btnLigaDesliga.Tag = Convert.ToChar((LigarDesligar)1);
+
+                int[] numeroItens = new int[999];
+                foreach (int i in numeroItens)
+                {
+                    numeroItens[0]++;
+                    cboTimeOut.Items.Add(Convert.ToString(numeroItens[0]));
+
+                    AppStatus.Debugar.EscreverDebugPrint("\r numeroItens [TOTAL] = " + Convert.ToString(numeroItens[0]));
+                }
             }
         }
+        
+        #endregion ---> btnLigaDesliga Completo
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        
+        private void btnConectar_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

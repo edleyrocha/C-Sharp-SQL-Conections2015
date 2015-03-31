@@ -84,6 +84,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AppStatus\AppStatus.csproj">
+      <Project>{169c7ca0-88c3-460f-9a4f-0524d88afc36}</Project>
+      <Name>AppStatus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MSSQLConnections\MSSQLConnections.csproj">
       <Project>{c0b1d350-97c8-4469-bf33-a66802b48822}</Project>
       <Name>MSSQLConnections</Name>
