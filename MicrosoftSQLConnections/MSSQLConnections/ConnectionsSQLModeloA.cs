@@ -1,15 +1,7 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-
-using System.Data.SqlClient;
-using System.Data;
-using System;
+﻿using System.Data.SqlClient;
 
 namespace MSSQLConnections
 {
- 
     /// <summary>
     /// Clase ConnectionsSQLSimples para Conexao Simples
     /// </summary>
@@ -32,15 +24,6 @@ namespace MSSQLConnections
         /// ConnectionSQL Private
         /// </summary>
         private static SqlConnection connectionSQL = new SqlConnection();
-        
-        /// <summary>
-        /// ConnectionSQL Public
-        /// </summary>
-        //public static SqlConnection ConnectionSQL
-        //{
-        //    get { return ConnectionsSQLModeloA.connectionSQL; }
-        //    set { ConnectionsSQLModeloA.connectionSQL = value; }
-        //}
 
         #endregion ---> SQL Connection
 
@@ -51,81 +34,125 @@ namespace MSSQLConnections
         /// </summary>
         private static SqlConnectionStringBuilder stringBuilderSQL = new SqlConnectionStringBuilder();
 
+        /// <summary>
+        /// String Completa de Conexao com Banco de Dados
+        /// </summary>
         public static string StringBuilderSQL_ConnectionString
         {
             get { return stringBuilderSQL.ConnectionString; }
             set { stringBuilderSQL.ConnectionString = value; }
         }
 
+        /// <summary>
+        /// Tempo de Vida da Conexao
+        /// </summary>
+        public static int StringBuilderSQL_ConnectTimeout
+        {
+            get { return stringBuilderSQL.ConnectTimeout; }
+            set { stringBuilderSQL.ConnectTimeout = value; }
+        }
+
+        /// <summary>
+        /// Endereço Servidor SQL - Nome ou IP 
+        /// </summary>
         public static string StringBuilderSQL_DataSource
         {
             private get { return stringBuilderSQL.DataSource; }
             set { stringBuilderSQL.DataSource = value; }
         }
-       
-        public static string StringBuilderSQL_InitialCatalog 
+
+        /// <summary>
+        /// Nome Banco de Dados
+        /// </summary>
+        public static string StringBuilderSQL_InitialCatalog
         {
             private get { return stringBuilderSQL.InitialCatalog; }
             set { stringBuilderSQL.InitialCatalog = value; }
         }
 
+        /// <summary>
+        /// Tipo de Segurança para Login
+        /// </summary>
         public static bool StringBuilderSQL_IntegratedSecurity
         {
             private get { return stringBuilderSQL.IntegratedSecurity; }
             set { stringBuilderSQL.IntegratedSecurity = value; }
         }
 
+        /// <summary>
+        /// Login de Usuario para Servidor Banco de Dados
+        /// </summary>
         public static string StringBuilderSQL_UserID
         {
             private get { return stringBuilderSQL.UserID; }
             set { stringBuilderSQL.UserID = value; }
         }
 
+        /// <summary>
+        /// Senha para Autenticar Servidor Banco de Dados
+        /// </summary>
         public static string StringBuilderSQL_Password
         {
             private get { return stringBuilderSQL.Password; }
             set { stringBuilderSQL.Password = value; }
         }
 
-        public static int StringBuilderSQL_ConnectTimeout
-        {
-            private get { return stringBuilderSQL.ConnectTimeout; }
-            set { stringBuilderSQL.ConnectTimeout = value; }
-        }
-
         #endregion ---> String Builder
 
         #region ---> Funcao de Retorno de Conexao
+        /// <summary>
+        /// Escolhas Entre ---> FecharConexaoFechado = 0, AbrirConexaoAberto = 1
+        /// </summary>
+        [System.ComponentModel.DefaultValue(FecharConexaoFechado)]
         public enum EscolhaAcao
         {
-            AbrirConexao,
-            FecharConexao
+            FecharConexaoFechado = 0,
+            AbrirConexaoAberto = 1
+
+        }
+        /// <summary>
+        /// Funcao Conexao SQL Retorno ---> Tuple-> (SqlConnection, int) tuple.Item1 tuple.Item2
+        /// </summary>
+        /// <param name="AcaoEscolhida"></param>
+        /// <returns></returns>
+        public static System.Tuple<SqlConnection, int> FU_RetornaConnection(EscolhaAcao AcaoEscolhida)
+        {
+            try
+            {
+                switch (AcaoEscolhida)
+                {
+                    case EscolhaAcao.AbrirConexaoAberto:
+                        {
+                            connectionSQL.ConnectionString = stringBuilderSQL.ConnectionString;
+                            connectionSQL.Open();
+                            AcaoEscolhida = EscolhaAcao.AbrirConexaoAberto;
+                            AppStatus.Debugar.EscreverDebugPrint("\t SQL Server Conectado...");
+                            break;
+                        }
+                    case EscolhaAcao.FecharConexaoFechado:
+                        {
+                            connectionSQL.Close();
+                            connectionSQL.Dispose();
+                            AcaoEscolhida = EscolhaAcao.FecharConexaoFechado;
+                            AppStatus.Debugar.EscreverDebugPrint("\t SQL Server Desconectado...");
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+            }
+            catch
+            {
+                AcaoEscolhida = EscolhaAcao.FecharConexaoFechado;
+                AppStatus.Debugar.EscreverDebugPrint("\t SQL Server " + "[ERRO]" + " Desconectado...");
+            }
+
+            return System.Tuple.Create(connectionSQL, (int)AcaoEscolhida);
+
         }
 
-        public static SqlConnection FU_RetornaConnection(EscolhaAcao AcaoEscolhida)
-        {
-            switch (AcaoEscolhida)
-            {
-                case EscolhaAcao.AbrirConexao:
-                    {
-                        connectionSQL.ConnectionString = StringBuilderSQL_ConnectionString;
-                        connectionSQL.Open();
-                        break;
-                    }
-                case EscolhaAcao.FecharConexao:
-                    {
-                        connectionSQL.Close();
-                        connectionSQL.Dispose();
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
-            }
-            return connectionSQL;
-        }
- 
         #endregion ---> Funcao de Retorno de Conexao
     }
 }
