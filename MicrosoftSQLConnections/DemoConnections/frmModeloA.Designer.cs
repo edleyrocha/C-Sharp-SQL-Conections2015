@@ -204,6 +204,7 @@
             // lblTimeOutConnectTimeout
             // 
             this.lblTimeOutConnectTimeout.AutoSize = true;
+            this.lblTimeOutConnectTimeout.Enabled = false;
             this.lblTimeOutConnectTimeout.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimeOutConnectTimeout.Location = new System.Drawing.Point(4, 107);
             this.lblTimeOutConnectTimeout.Name = "lblTimeOutConnectTimeout";

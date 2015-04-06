@@ -17,21 +17,35 @@ namespace DemoConnections
             AppStatus.Debugar.Status();
         }
 
+        #region ---> btnSair Super Simples
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        #endregion Botao Sair Super Simples
+
         #region ---> btnShow Simples
         private void btnShow_Click(object sender, EventArgs e)
         {
+            MostrarOcultarSenha();
+        }
+        private void MostrarOcultarSenha()
+        {
             if ((btnShow.Text == ("Show")) && (txtSenhaPassword.UseSystemPasswordChar == (true)))
             {
-                btnShow.Text = "NoShow";
+                AppStatus.Debugar.EscreverDebugPrint("\r\t Mudar Texto para NoShow e Mostar Senha");
                 txtSenhaPassword.UseSystemPasswordChar = false;
+                btnShow.Text = "NoShow";
 
             }
             else if ((btnShow.Text == ("NoShow")) && (txtSenhaPassword.UseSystemPasswordChar == (false)))
             {
-                btnShow.Text = "Show";
+                AppStatus.Debugar.EscreverDebugPrint("\r\t Mudar Texto para SHOW e Oculta Senha");
                 txtSenhaPassword.UseSystemPasswordChar = true;
+                btnShow.Text = "Show";
             }
         }
+
         #endregion ---> btnShow Simples
 
         #region ---> btnLigaDesliga Completo
@@ -47,7 +61,7 @@ namespace DemoConnections
             if ((Convert.ToInt32(btnLigaDesliga.Tag)) == ((int)LigarDesligar.Ligar))
             {
                 AppStatus.Debugar.EscreverDebugPrint("\r\r\r btnLigaDesliga = Liga");
-
+                lblTimeOutConnectTimeout.Enabled = (!lblTimeOutConnectTimeout.Enabled);
                 cboTimeOutConnectTimeout.Enabled = (!true);
                 cboTimeOutConnectTimeout.Items.Clear();
                 cboTimeOutConnectTimeout.Text = (String.Empty);
@@ -61,7 +75,8 @@ namespace DemoConnections
             else if ((Convert.ToInt32(btnLigaDesliga.Tag)) == ((int)LigarDesligar.Desligar))
             {
                 AppStatus.Debugar.EscreverDebugPrint("\r\r\r btnLigaDesliga = Desliga");
-
+               
+                lblTimeOutConnectTimeout.Enabled = (!lblTimeOutConnectTimeout.Enabled);
                 cboTimeOutConnectTimeout.Enabled = (true);
 
                 btnLigaDesliga.Text = Convert.ToString((LigarDesligar)(Convert.ToInt32(btnLigaDesliga.Tag)));
@@ -105,14 +120,16 @@ namespace DemoConnections
         }
         #endregion ---> Escolhas rbt WindowsLocal e SQLServer
 
+        #region ---> btnConectar ao Server
         private void btnConectar_Click(object sender, EventArgs e)
         {
-            
+            ///Limpar
             MSSQLConnections.ConnectionsSQLModeloA.StringBuilderSQL_ConnectionString = (String.Empty);
 
             MSSQLConnections.ConnectionsSQLModeloA.StringBuilderSQL_DataSource = (txtServerDataSource.Text.ToString());
             MSSQLConnections.ConnectionsSQLModeloA.StringBuilderSQL_InitialCatalog = (txtBancoInitialCatalog.Text.ToString());
 
+            /// Escolhoas Entre rbtSQLServer e rbtWindowsLocal
             if (((rbtSQLServer.Checked) == (true)) | ((rbtWindowsLocal.Checked) == ((false))))
             {
                 AppStatus.Debugar.EscreverDebugPrint("\r \tLogin via SQL Server");
@@ -151,10 +168,6 @@ namespace DemoConnections
             MessageBox.Show(Convert.ToString(ReturnoConn.Item1) + "   " + Convert.ToString(ReturnoConn.Item2));
 
         }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        #endregion ---> btnConectar ao Server
     }
 }
