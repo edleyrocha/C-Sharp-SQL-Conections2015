@@ -15,7 +15,8 @@ namespace DemoConnections
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmModeloA());
+            Application.Run(new frmModelA());
+            //Application.Run(new frmPrincipal());
         }
     }
 }

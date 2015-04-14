@@ -20,7 +20,8 @@ namespace DemoConnections
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            frmModelA f = new frmModelA();
+            f.ShowDialog();
         }
     }
 }

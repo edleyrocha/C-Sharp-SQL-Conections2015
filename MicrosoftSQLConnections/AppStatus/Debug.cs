@@ -1,39 +1,46 @@
-﻿using System;
-
-namespace AppStatus
+﻿namespace AppStatus
 {
+    #region ---> (Using)
+    using System;
+    #endregion
     public class Debugar
     {
+        #region ---> (Debig Enable Disable)
         /// <summary>
-        /// Para Ativar ou Desativar Mensagens no Codigo em Modo DEBUG
+        /// To Enable or Disable posts Code in DEBUG mode
         /// </summary>
-        private static Boolean AtivarPritDebug = (true);
+        private static Boolean EnableDisablePritDebug = (true);
+        #endregion
 
+        #region ---> (Print Status Debig)
         /// <summary>
-        /// Escreve Status se Debug Ativado
+        /// Write Status if Debug Enabled
         /// </summary>
         public static void Status()
         {
-            if (AtivarPritDebug)
+            if (EnableDisablePritDebug)
             {
 #if (DEBUG)
                 System.Diagnostics.Debug.Print("\r \t" + " Status Mode = DEBUG");
 #endif
             }
         }
+        #endregion ---> ( Function Write TxT )
 
+        #region
         /// <summary>
-        /// Escreve Debug Print Com (AtivarPritDebug) Ativado 
+        /// Write Debug TxT
         /// </summary>
-        /// <param name="txtEscrever"></param>
-        public static void EscreverDebugPrint(String txtEscrever)
+        /// <param name="txtWrite"></param>
+        public static void EscreverDebugPrint(String txtWrite)
         {
-            if (AtivarPritDebug)
+            if (EnableDisablePritDebug)
             {
 #if (DEBUG)
-                System.Diagnostics.Debug.Print("\r \t" + txtEscrever);
+                System.Diagnostics.Debug.Print("\r \t" + txtWrite);
 #endif
             }
         }
+        #endregion
     }
 }

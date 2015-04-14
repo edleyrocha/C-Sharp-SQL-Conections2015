@@ -1,6 +1,6 @@
 ﻿namespace DemoConnections
 {
-    partial class frmModeloA
+    partial class frmModelA
     {
         /// <summary>
         /// Required designer variable.
@@ -30,11 +30,11 @@
         {
             this.grpModeloA = new System.Windows.Forms.GroupBox();
             this.pnlModeloServerLogin = new System.Windows.Forms.Panel();
-            this.btnConectar = new System.Windows.Forms.Button();
-            this.btnSair = new System.Windows.Forms.Button();
+            this.btnConnect = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.pnlBtnShowLigar = new System.Windows.Forms.Panel();
             this.btnShow = new System.Windows.Forms.Button();
-            this.btnLigaDesliga = new System.Windows.Forms.Button();
+            this.btnOnOff = new System.Windows.Forms.Button();
             this.cboTimeOutConnectTimeout = new System.Windows.Forms.ComboBox();
             this.rbtSQLServer = new System.Windows.Forms.RadioButton();
             this.rbtWindowsLocal = new System.Windows.Forms.RadioButton();
@@ -60,13 +60,13 @@
             this.grpModeloA.Size = new System.Drawing.Size(284, 213);
             this.grpModeloA.TabIndex = 0;
             this.grpModeloA.TabStop = false;
-            this.grpModeloA.Text = "SQL Connection Modelo A";
+            this.grpModeloA.Text = "SQL Connection Model A";
             // 
             // pnlModeloServerLogin
             // 
             this.pnlModeloServerLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlModeloServerLogin.Controls.Add(this.btnConectar);
-            this.pnlModeloServerLogin.Controls.Add(this.btnSair);
+            this.pnlModeloServerLogin.Controls.Add(this.btnConnect);
+            this.pnlModeloServerLogin.Controls.Add(this.btnClose);
             this.pnlModeloServerLogin.Controls.Add(this.pnlBtnShowLigar);
             this.pnlModeloServerLogin.Controls.Add(this.cboTimeOutConnectTimeout);
             this.pnlModeloServerLogin.Controls.Add(this.rbtSQLServer);
@@ -85,33 +85,33 @@
             this.pnlModeloServerLogin.Size = new System.Drawing.Size(272, 187);
             this.pnlModeloServerLogin.TabIndex = 0;
             // 
-            // btnConectar
+            // btnConnect
             // 
-            this.btnConectar.Location = new System.Drawing.Point(3, 157);
-            this.btnConectar.Name = "btnConectar";
-            this.btnConectar.Size = new System.Drawing.Size(187, 23);
-            this.btnConectar.TabIndex = 10;
-            this.btnConectar.Tag = "2";
-            this.btnConectar.Text = "Conectar";
-            this.btnConectar.UseVisualStyleBackColor = true;
-            this.btnConectar.Click += new System.EventHandler(this.btnConectar_Click);
+            this.btnConnect.Location = new System.Drawing.Point(3, 157);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(187, 23);
+            this.btnConnect.TabIndex = 10;
+            this.btnConnect.Tag = "2";
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConectar_Click);
             // 
-            // btnSair
+            // btnClose
             // 
-            this.btnSair.Location = new System.Drawing.Point(200, 157);
-            this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(64, 23);
-            this.btnSair.TabIndex = 11;
-            this.btnSair.Tag = "2";
-            this.btnSair.Text = "&Sair";
-            this.btnSair.UseVisualStyleBackColor = true;
-            this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
+            this.btnClose.Location = new System.Drawing.Point(200, 157);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(64, 23);
+            this.btnClose.TabIndex = 11;
+            this.btnClose.Tag = "2";
+            this.btnClose.Text = "&Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnSair_Click);
             // 
             // pnlBtnShowLigar
             // 
             this.pnlBtnShowLigar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlBtnShowLigar.Controls.Add(this.btnShow);
-            this.pnlBtnShowLigar.Controls.Add(this.btnLigaDesliga);
+            this.pnlBtnShowLigar.Controls.Add(this.btnOnOff);
             this.pnlBtnShowLigar.Location = new System.Drawing.Point(196, 81);
             this.pnlBtnShowLigar.Name = "pnlBtnShowLigar";
             this.pnlBtnShowLigar.Size = new System.Drawing.Size(71, 54);
@@ -127,16 +127,16 @@
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
-            // btnLigaDesliga
+            // btnOnOff
             // 
-            this.btnLigaDesliga.Location = new System.Drawing.Point(3, 27);
-            this.btnLigaDesliga.Name = "btnLigaDesliga";
-            this.btnLigaDesliga.Size = new System.Drawing.Size(64, 23);
-            this.btnLigaDesliga.TabIndex = 6;
-            this.btnLigaDesliga.Tag = "2";
-            this.btnLigaDesliga.Text = "Ligar";
-            this.btnLigaDesliga.UseVisualStyleBackColor = true;
-            this.btnLigaDesliga.Click += new System.EventHandler(this.btnLigaDesliga_Click);
+            this.btnOnOff.Location = new System.Drawing.Point(3, 27);
+            this.btnOnOff.Name = "btnOnOff";
+            this.btnOnOff.Size = new System.Drawing.Size(64, 23);
+            this.btnOnOff.TabIndex = 6;
+            this.btnOnOff.Tag = "2";
+            this.btnOnOff.Text = "ON";
+            this.btnOnOff.UseVisualStyleBackColor = true;
+            this.btnOnOff.Click += new System.EventHandler(this.btnLigaDesliga_Click);
             // 
             // cboTimeOutConnectTimeout
             // 
@@ -151,6 +151,7 @@
             // 
             this.rbtSQLServer.AutoSize = true;
             this.rbtSQLServer.Checked = true;
+            this.rbtSQLServer.Enabled = false;
             this.rbtSQLServer.Location = new System.Drawing.Point(110, 134);
             this.rbtSQLServer.Name = "rbtSQLServer";
             this.rbtSQLServer.Size = new System.Drawing.Size(80, 17);
@@ -206,7 +207,7 @@
             this.lblTimeOutConnectTimeout.AutoSize = true;
             this.lblTimeOutConnectTimeout.Enabled = false;
             this.lblTimeOutConnectTimeout.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeOutConnectTimeout.Location = new System.Drawing.Point(4, 107);
+            this.lblTimeOutConnectTimeout.Location = new System.Drawing.Point(6, 107);
             this.lblTimeOutConnectTimeout.Name = "lblTimeOutConnectTimeout";
             this.lblTimeOutConnectTimeout.Size = new System.Drawing.Size(80, 19);
             this.lblTimeOutConnectTimeout.TabIndex = 0;
@@ -216,43 +217,43 @@
             // 
             this.lblSenhaPassword.AutoSize = true;
             this.lblSenhaPassword.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSenhaPassword.Location = new System.Drawing.Point(21, 82);
+            this.lblSenhaPassword.Location = new System.Drawing.Point(0, 82);
             this.lblSenhaPassword.Name = "lblSenhaPassword";
-            this.lblSenhaPassword.Size = new System.Drawing.Size(63, 19);
+            this.lblSenhaPassword.Size = new System.Drawing.Size(86, 19);
             this.lblSenhaPassword.TabIndex = 0;
-            this.lblSenhaPassword.Text = "Senha..:";
+            this.lblSenhaPassword.Text = "Password..:";
             // 
             // lblUsuarioUserID
             // 
             this.lblUsuarioUserID.AutoSize = true;
             this.lblUsuarioUserID.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsuarioUserID.Location = new System.Drawing.Point(11, 56);
+            this.lblUsuarioUserID.Location = new System.Drawing.Point(28, 56);
             this.lblUsuarioUserID.Name = "lblUsuarioUserID";
-            this.lblUsuarioUserID.Size = new System.Drawing.Size(73, 19);
+            this.lblUsuarioUserID.Size = new System.Drawing.Size(58, 19);
             this.lblUsuarioUserID.TabIndex = 0;
-            this.lblUsuarioUserID.Text = "Usuario..:";
+            this.lblUsuarioUserID.Text = "Login..:";
             // 
             // lblBancoInitialCatalog
             // 
             this.lblBancoInitialCatalog.AutoSize = true;
             this.lblBancoInitialCatalog.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBancoInitialCatalog.Location = new System.Drawing.Point(21, 30);
+            this.lblBancoInitialCatalog.Location = new System.Drawing.Point(2, 30);
             this.lblBancoInitialCatalog.Name = "lblBancoInitialCatalog";
-            this.lblBancoInitialCatalog.Size = new System.Drawing.Size(63, 19);
+            this.lblBancoInitialCatalog.Size = new System.Drawing.Size(84, 19);
             this.lblBancoInitialCatalog.TabIndex = 0;
-            this.lblBancoInitialCatalog.Text = "Banco..:";
+            this.lblBancoInitialCatalog.Text = "Database..:";
             // 
             // lblServerDataSource
             // 
             this.lblServerDataSource.AutoSize = true;
             this.lblServerDataSource.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblServerDataSource.Location = new System.Drawing.Point(20, 4);
+            this.lblServerDataSource.Location = new System.Drawing.Point(22, 4);
             this.lblServerDataSource.Name = "lblServerDataSource";
             this.lblServerDataSource.Size = new System.Drawing.Size(64, 19);
             this.lblServerDataSource.TabIndex = 0;
             this.lblServerDataSource.Text = "Server..:";
             // 
-            // frmModeloA
+            // frmModelA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -262,7 +263,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmModeloA";
+            this.Name = "frmModelA";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ModeloA";
             this.grpModeloA.ResumeLayout(false);
@@ -290,10 +291,10 @@
         private System.Windows.Forms.RadioButton rbtSQLServer;
         private System.Windows.Forms.RadioButton rbtWindowsLocal;
         private System.Windows.Forms.Label lblTimeOutConnectTimeout;
-        private System.Windows.Forms.Button btnLigaDesliga;
+        private System.Windows.Forms.Button btnOnOff;
         private System.Windows.Forms.Panel pnlBtnShowLigar;
-        private System.Windows.Forms.Button btnConectar;
-        private System.Windows.Forms.Button btnSair;
+        private System.Windows.Forms.Button btnConnect;
+        private System.Windows.Forms.Button btnClose;
 
     }
 }
