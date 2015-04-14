@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DemoConnections
+namespace ConnectionsMSSQLDesktop
 {
     public partial class frmModelA : Form
     {

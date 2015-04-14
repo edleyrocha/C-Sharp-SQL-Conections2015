@@ -1,4 +1,4 @@
-﻿namespace DemoConnections
+﻿namespace ConnectionsMSSQLDesktop
 {
     partial class frmModelA
     {

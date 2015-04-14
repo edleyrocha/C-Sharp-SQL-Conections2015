@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40302.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopConnections", "DesktopConnections\DesktopConnections.csproj", "{7CA8ECD1-5334-499E-A4CF-1CB69220946E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionsMSSQLDesktop", "ConnectionsMSSQLDesktop\ConnectionsMSSQLDesktop.csproj", "{7CA8ECD1-5334-499E-A4CF-1CB69220946E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSQLConnections", "MSSQLConnections\MSSQLConnections.csproj", "{C0B1D350-97C8-4469-BF33-A66802B48822}"
 EndProject

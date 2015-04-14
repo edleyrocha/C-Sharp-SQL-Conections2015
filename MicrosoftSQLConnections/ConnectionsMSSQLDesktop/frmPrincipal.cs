@@ -9,7 +9,7 @@ using System.Windows.Forms;
 //
 using MSSQLConnections;
  
-namespace DemoConnections
+namespace ConnectionsMSSQLDesktop
 {
     public partial class frmPrincipal : Form
     {
