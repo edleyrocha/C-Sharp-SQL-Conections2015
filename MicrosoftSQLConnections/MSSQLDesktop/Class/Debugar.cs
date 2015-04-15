@@ -1,20 +1,25 @@
 ﻿namespace MSSQLDesktop
 {
-    #region ---> (Using)
+    #region ---> ( Using )
     using System;
     #endregion
+
+    #region ---> ( Class )
+    /// <summary>
+    /// # Debugar Class
+    /// </summary>
     public class Debugar
     {
-        #region ---> (Debig Enable Disable)
+        #region ---> ( Debig Enable Disable )
         /// <summary>
-        /// To Enable or Disable posts Code in DEBUG mode
+        /// #To Enable or Disable posts Code in DEBUG mode
         /// </summary>
         private static Boolean EnableDisablePritDebug = (true);
         #endregion
 
-        #region ---> (Print Status Debig)
+        #region ---> ( Print Status Debug )
         /// <summary>
-        /// Write Status if Debug Enabled
+        /// #Write Status if Debug Enabled
         /// </summary>
         public static void Status()
         {
@@ -27,9 +32,9 @@
         }
         #endregion ---> ( Function Write TxT )
 
-        #region
+        #region ---> ( Print Text Debug )
         /// <summary>
-        /// Write Debug TxT
+        /// #Write Debug TxT
         /// </summary>
         /// <param name="txtWrite"></param>
         public static void TypeDebugPrint(String txtWrite)
@@ -43,4 +48,5 @@
         }
         #endregion
     }
+    #endregion
 }

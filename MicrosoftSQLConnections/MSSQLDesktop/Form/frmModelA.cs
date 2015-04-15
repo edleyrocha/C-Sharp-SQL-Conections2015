@@ -1,21 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-namespace MSSQLDesktop
+﻿namespace MSSQLDesktop
 {
+    #region ---> ( Using )
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text;
+    using System.Windows.Forms;
+    #endregion
+    #region ---> ( Class frmModelA )
+    /// <summary>
+    /// #Class frmModelA Form
+    /// </summary>
     public partial class frmModelA : Form
     {
+        #region --->( Constructor )
+        /// <summary>
+        /// #Constructor frmModelA
+        /// </summary>
         public frmModelA()
         {
             InitializeComponent();
             Debugar.Status();
         }
+        #endregion
 
         #region ---> btnSair Super Simples
         private void btnSair_Click(object sender, EventArgs e)
@@ -24,29 +34,29 @@ namespace MSSQLDesktop
         }
         #endregion Botao Sair Super Simples
 
-        #region ---> btnShow Simples
+        #region ---> btnShowHide Simples
         private void btnShow_Click(object sender, EventArgs e)
         {
             MostrarOcultarSenha();
         }
         private void MostrarOcultarSenha()
         {
-            if ((btnShow.Text == ("Show")) && (txtSenhaPassword.UseSystemPasswordChar == (true)))
+            if ((btnShowHide.Text == ("Show")) && (txtPassword.UseSystemPasswordChar == (true)))
             {
                 Debugar.TypeDebugPrint("\r\t Change Text Hide and Show Password");
-                txtSenhaPassword.UseSystemPasswordChar = false;
-                btnShow.Text = "Hide";
+                txtPassword.UseSystemPasswordChar = false;
+                btnShowHide.Text = "Hide";
 
             }
-            else if ((btnShow.Text == ("Hide")) && (txtSenhaPassword.UseSystemPasswordChar == (false)))
+            else if ((btnShowHide.Text == ("Hide")) && (txtPassword.UseSystemPasswordChar == (false)))
             {
                 Debugar.TypeDebugPrint("\r\t Change Text Show and Hide Password");
-                txtSenhaPassword.UseSystemPasswordChar = true;
-                btnShow.Text = "Show";
+                txtPassword.UseSystemPasswordChar = true;
+                btnShowHide.Text = "Show";
             }
         }
 
-        #endregion ---> btnShow Simples
+        #endregion ---> btnShowHide Simples
 
         #region ---> btnLigaDesliga Completo
 
@@ -61,23 +71,23 @@ namespace MSSQLDesktop
             if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)TimeOutOnOff.ON))
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r\r\r btnLigaDesliga = Liga");
-                lblTimeOutConnectTimeout.Enabled = (!lblTimeOutConnectTimeout.Enabled);
-                cboTimeOutConnectTimeout.Enabled = (!true);
-                cboTimeOutConnectTimeout.Items.Clear();
-                cboTimeOutConnectTimeout.Text = (String.Empty);
+                lblConnectTimeout.Enabled = (!lblConnectTimeout.Enabled);
+                cboConnectTimeout.Enabled = (!true);
+                cboConnectTimeout.Items.Clear();
+                cboConnectTimeout.Text = (String.Empty);
 
 
                 btnOnOff.Text = Convert.ToString((TimeOutOnOff)(Convert.ToInt32(btnOnOff.Tag)));
                 btnOnOff.Tag = Convert.ToChar((TimeOutOnOff)2);
 
-                MSSQLDesktop.Debugar.TypeDebugPrint("\r numeroItens [CLEAR] = " + Convert.ToString(cboTimeOutConnectTimeout.Items.Count));
+                MSSQLDesktop.Debugar.TypeDebugPrint("\r numeroItens [CLEAR] = " + Convert.ToString(cboConnectTimeout.Items.Count));
             }
             else if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)TimeOutOnOff.OFF))
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r\r\r btnLigaDesliga = Desliga");
-               
-                lblTimeOutConnectTimeout.Enabled = (!lblTimeOutConnectTimeout.Enabled);
-                cboTimeOutConnectTimeout.Enabled = (true);
+
+                lblConnectTimeout.Enabled = (!lblConnectTimeout.Enabled);
+                cboConnectTimeout.Enabled = (true);
 
                 btnOnOff.Text = Convert.ToString((TimeOutOnOff)(Convert.ToInt32(btnOnOff.Tag)));
                 btnOnOff.Tag = Convert.ToChar((TimeOutOnOff)1);
@@ -86,12 +96,12 @@ namespace MSSQLDesktop
                 foreach (int i in numeroItens)
                 {
                     numeroItens[0]++;
-                    cboTimeOutConnectTimeout.Items.Add(Convert.ToString(numeroItens[0]));
+                    cboConnectTimeout.Items.Add(Convert.ToString(numeroItens[0]));
 
                     MSSQLDesktop.Debugar.TypeDebugPrint("\r numeroItens [TOTAL] = " + Convert.ToString(numeroItens[0]));
                 }
 
-                cboTimeOutConnectTimeout.Text = Convert.ToString(cboTimeOutConnectTimeout.Items[29].ToString());
+                cboConnectTimeout.Text = Convert.ToString(cboConnectTimeout.Items[29].ToString());
 
             }
         }
@@ -104,22 +114,22 @@ namespace MSSQLDesktop
         /// </summary>
         private void EnableDisableLogin()
         {
-            txtUsuarioUserID.Enabled    = !(txtUsuarioUserID.Enabled);
-            lblUsuarioUserID.Enabled    = !(lblUsuarioUserID.Enabled);
-            txtSenhaPassword.Enabled    = !(txtSenhaPassword.Enabled);
-            lblSenhaPassword.Enabled    = !(lblSenhaPassword.Enabled);
-            rbtSQLServer.Enabled        = !(rbtSQLServer.Enabled);
-            rbtWindowsLocal.Enabled     = !(rbtWindowsLocal.Enabled);
-            MSSQLDesktop.Debugar.TypeDebugPrint("Status Login = " + Convert.ToString(txtUsuarioUserID.Enabled));
+            txtUserID.Enabled = !(txtUserID.Enabled);
+            lblUserID.Enabled = !(lblUserID.Enabled);
+            txtPassword.Enabled = !(txtPassword.Enabled);
+            lblPassword.Enabled = !(lblPassword.Enabled);
+            rbtSQLServer.Enabled = !(rbtSQLServer.Enabled);
+            rbtWindowsLocal.Enabled = !(rbtWindowsLocal.Enabled);
+            MSSQLDesktop.Debugar.TypeDebugPrint("Status Login = " + Convert.ToString(txtUserID.Enabled));
         }
         private void rbtWindowsLocal_Click(object sender, EventArgs e)
         {
 
-                EnableDisableLogin();
+            EnableDisableLogin();
         }
         private void rbtSQLServer_Click(object sender, EventArgs e)
         {
-                EnableDisableLogin();
+            EnableDisableLogin();
         }
         #endregion ---> Escolhas rbt WindowsLocal e SQLServer
 
@@ -130,15 +140,15 @@ namespace MSSQLDesktop
             ConnectionsSQLModelA.StringBuilderSQL_ConnectionString = (String.Empty);
 
             MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_DataSource = (txtServerDataSource.Text.ToString());
-            MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_InitialCatalog = (txtBancoInitialCatalog.Text.ToString());
+            MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_InitialCatalog = (txtDataInitialCatalog.Text.ToString());
 
             /// Escolhoas Entre rbtSQLServer e rbtWindowsLocal
             if (((rbtSQLServer.Checked) == (true)) | ((rbtWindowsLocal.Checked) == ((false))))
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r \tLogin via SQL Server");
 
-                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_UserID = (txtUsuarioUserID.Text.ToString());
-                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_Password = (txtSenhaPassword.Text.ToString());
+                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_UserID = (txtUserID.Text.ToString());
+                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_Password = (txtPassword.Text.ToString());
 
             }
             else if (((rbtWindowsLocal.Checked) == (true)) | ((rbtSQLServer.Checked) == ((false))))
@@ -151,12 +161,12 @@ namespace MSSQLDesktop
             }
 
             MSSQLDesktop.Debugar.TypeDebugPrint("\r\t Valor TimeOut Atual = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
-            if ((cboTimeOutConnectTimeout.Enabled) == (true))
+            if ((cboConnectTimeout.Enabled) == (true))
             {
 
                 MSSQLDesktop.Debugar.TypeDebugPrint("\t Escrevendo Valor TimeOut...");
 
-                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout = (int.Parse(cboTimeOutConnectTimeout.Text.ToString()));
+                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout = (int.Parse(cboConnectTimeout.Text.ToString()));
 
             }
             else
@@ -165,14 +175,12 @@ namespace MSSQLDesktop
             }
             MSSQLDesktop.Debugar.TypeDebugPrint("\t\t Valor TimeOut Final = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
 
-            var ReturnoConn = MSSQLDesktop.ConnectionsSQLModelA.FU_RetornaConnection(MSSQLDesktop.ConnectionsSQLModelA.choicesAction.ConnectionOpen);
-            
+            var ReturnoConn = MSSQLDesktop.ConnectionsSQLModelA.ReturnConnection(MSSQLDesktop.ConnectionsSQLModelA.choicesAction.ConnectionOpen);
+
             MessageBox.Show(Convert.ToString(ReturnoConn.Item1) + "   " + Convert.ToString(ReturnoConn.Item2));
 
         }
         #endregion ---> btnConectar ao Server
-
-    
-
     }
+    #endregion
 }
