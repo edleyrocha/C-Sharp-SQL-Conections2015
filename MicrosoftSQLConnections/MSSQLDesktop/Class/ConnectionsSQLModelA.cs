@@ -1,4 +1,4 @@
-﻿namespace MSSQLConnections
+﻿namespace MSSQLDesktop
 {
     #region ---> ( Using )
     using System;
@@ -116,7 +116,7 @@
                             connectionSQL.ConnectionString = stringBuilderSQL.ConnectionString;
                             connectionSQL.Open();
                             ActionChosen = choicesAction.ConnectionOpen;
-                            AppStatus.Debugar.TypeDebugPrint("\t SQL Server Online...");
+                            Debugar.TypeDebugPrint("\t SQL Server Online...");
                             break;
                         }
                     case choicesAction.ConnectionClose:
@@ -124,7 +124,8 @@
                             connectionSQL.Close();
                             connectionSQL.Dispose();
                             ActionChosen = choicesAction.ConnectionClose;
-                            AppStatus.Debugar.TypeDebugPrint("\t SQL Server Offline...");
+
+                            Debugar.TypeDebugPrint("\t SQL Server Offline...");
                             break;
                         }
                     default:
@@ -136,7 +137,7 @@
             catch
             {
                 ActionChosen = choicesAction.ConnectionClose;
-                AppStatus.Debugar.TypeDebugPrint("\t SQL Server " + "[ERRO]" + " Offline...");
+                Debugar.TypeDebugPrint("\t SQL Server " + "[ERRO]" + " Offline...");
             }
             return Tuple.Create(connectionSQL, (int)ActionChosen);
         }

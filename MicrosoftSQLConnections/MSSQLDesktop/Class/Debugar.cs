@@ -1,4 +1,4 @@
-﻿namespace AppStatus
+﻿namespace MSSQLDesktop
 {
     #region ---> (Using)
     using System;

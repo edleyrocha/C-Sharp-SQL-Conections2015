@@ -1,4 +1,4 @@
-﻿namespace ConnectionsMSSQLDesktop
+﻿namespace MSSQLDesktop
 {
     partial class frmModelA
     {
@@ -264,6 +264,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmModelA";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ModeloA";
             this.grpModeloA.ResumeLayout(false);

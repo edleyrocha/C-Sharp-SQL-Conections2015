@@ -1,4 +1,4 @@
-﻿namespace ConnectionsMSSQLDesktop
+﻿namespace MSSQLDesktop
 {
     #region ---> ( Using )
     using System;
