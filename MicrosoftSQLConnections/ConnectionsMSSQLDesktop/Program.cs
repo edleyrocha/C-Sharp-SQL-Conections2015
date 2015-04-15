@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-
-namespace ConnectionsMSSQLDesktop
+﻿namespace ConnectionsMSSQLDesktop
 {
+    #region ---> ( Using )
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows.Forms;
+    #endregion
     static class Program
     {
         /// <summary>
@@ -15,8 +16,9 @@ namespace ConnectionsMSSQLDesktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+#if (DEBUG)
             Application.Run(new frmModelA());
-            //Application.Run(new frmPrincipal());
+#endif
         }
     }
 }

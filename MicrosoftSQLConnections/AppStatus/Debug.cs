@@ -32,7 +32,7 @@
         /// Write Debug TxT
         /// </summary>
         /// <param name="txtWrite"></param>
-        public static void EscreverDebugPrint(String txtWrite)
+        public static void TypeDebugPrint(String txtWrite)
         {
             if (EnableDisablePritDebug)
             {

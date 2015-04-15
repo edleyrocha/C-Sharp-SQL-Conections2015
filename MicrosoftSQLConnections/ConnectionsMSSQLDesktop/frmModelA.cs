@@ -33,14 +33,14 @@ namespace ConnectionsMSSQLDesktop
         {
             if ((btnShow.Text == ("Show")) && (txtSenhaPassword.UseSystemPasswordChar == (true)))
             {
-                AppStatus.Debugar.EscreverDebugPrint("\r\t Change Text Hide and Show Password");
+                AppStatus.Debugar.TypeDebugPrint("\r\t Change Text Hide and Show Password");
                 txtSenhaPassword.UseSystemPasswordChar = false;
                 btnShow.Text = "Hide";
 
             }
             else if ((btnShow.Text == ("Hide")) && (txtSenhaPassword.UseSystemPasswordChar == (false)))
             {
-                AppStatus.Debugar.EscreverDebugPrint("\r\t Change Text Show and Hide Password");
+                AppStatus.Debugar.TypeDebugPrint("\r\t Change Text Show and Hide Password");
                 txtSenhaPassword.UseSystemPasswordChar = true;
                 btnShow.Text = "Show";
             }
@@ -60,7 +60,7 @@ namespace ConnectionsMSSQLDesktop
         {
             if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)TimeOutOnOff.ON))
             {
-                AppStatus.Debugar.EscreverDebugPrint("\r\r\r btnLigaDesliga = Liga");
+                AppStatus.Debugar.TypeDebugPrint("\r\r\r btnLigaDesliga = Liga");
                 lblTimeOutConnectTimeout.Enabled = (!lblTimeOutConnectTimeout.Enabled);
                 cboTimeOutConnectTimeout.Enabled = (!true);
                 cboTimeOutConnectTimeout.Items.Clear();
@@ -70,11 +70,11 @@ namespace ConnectionsMSSQLDesktop
                 btnOnOff.Text = Convert.ToString((TimeOutOnOff)(Convert.ToInt32(btnOnOff.Tag)));
                 btnOnOff.Tag = Convert.ToChar((TimeOutOnOff)2);
 
-                AppStatus.Debugar.EscreverDebugPrint("\r numeroItens [CLEAR] = " + Convert.ToString(cboTimeOutConnectTimeout.Items.Count));
+                AppStatus.Debugar.TypeDebugPrint("\r numeroItens [CLEAR] = " + Convert.ToString(cboTimeOutConnectTimeout.Items.Count));
             }
             else if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)TimeOutOnOff.OFF))
             {
-                AppStatus.Debugar.EscreverDebugPrint("\r\r\r btnLigaDesliga = Desliga");
+                AppStatus.Debugar.TypeDebugPrint("\r\r\r btnLigaDesliga = Desliga");
                
                 lblTimeOutConnectTimeout.Enabled = (!lblTimeOutConnectTimeout.Enabled);
                 cboTimeOutConnectTimeout.Enabled = (true);
@@ -88,7 +88,7 @@ namespace ConnectionsMSSQLDesktop
                     numeroItens[0]++;
                     cboTimeOutConnectTimeout.Items.Add(Convert.ToString(numeroItens[0]));
 
-                    AppStatus.Debugar.EscreverDebugPrint("\r numeroItens [TOTAL] = " + Convert.ToString(numeroItens[0]));
+                    AppStatus.Debugar.TypeDebugPrint("\r numeroItens [TOTAL] = " + Convert.ToString(numeroItens[0]));
                 }
 
                 cboTimeOutConnectTimeout.Text = Convert.ToString(cboTimeOutConnectTimeout.Items[29].ToString());
@@ -110,7 +110,7 @@ namespace ConnectionsMSSQLDesktop
             lblSenhaPassword.Enabled    = !(lblSenhaPassword.Enabled);
             rbtSQLServer.Enabled        = !(rbtSQLServer.Enabled);
             rbtWindowsLocal.Enabled     = !(rbtWindowsLocal.Enabled);
-            AppStatus.Debugar.EscreverDebugPrint("Status Login = " + Convert.ToString(txtUsuarioUserID.Enabled));
+            AppStatus.Debugar.TypeDebugPrint("Status Login = " + Convert.ToString(txtUsuarioUserID.Enabled));
         }
         private void rbtWindowsLocal_Click(object sender, EventArgs e)
         {
@@ -135,7 +135,7 @@ namespace ConnectionsMSSQLDesktop
             /// Escolhoas Entre rbtSQLServer e rbtWindowsLocal
             if (((rbtSQLServer.Checked) == (true)) | ((rbtWindowsLocal.Checked) == ((false))))
             {
-                AppStatus.Debugar.EscreverDebugPrint("\r \tLogin via SQL Server");
+                AppStatus.Debugar.TypeDebugPrint("\r \tLogin via SQL Server");
 
                 MSSQLConnections.ConnectionsSQLModelA.StringBuilderSQL_UserID = (txtUsuarioUserID.Text.ToString());
                 MSSQLConnections.ConnectionsSQLModelA.StringBuilderSQL_Password = (txtSenhaPassword.Text.ToString());
@@ -143,29 +143,29 @@ namespace ConnectionsMSSQLDesktop
             }
             else if (((rbtWindowsLocal.Checked) == (true)) | ((rbtSQLServer.Checked) == ((false))))
             {
-                AppStatus.Debugar.EscreverDebugPrint("\r \tLogin via Windows Local");
+                AppStatus.Debugar.TypeDebugPrint("\r \tLogin via Windows Local");
 
                 MSSQLConnections.ConnectionsSQLModelA.StringBuilderSQL_UserID = (String.Empty);
                 MSSQLConnections.ConnectionsSQLModelA.StringBuilderSQL_Password = (String.Empty);
 
             }
 
-            AppStatus.Debugar.EscreverDebugPrint("\r\t Valor TimeOut Atual = " + (Convert.ToString(MSSQLConnections.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
+            AppStatus.Debugar.TypeDebugPrint("\r\t Valor TimeOut Atual = " + (Convert.ToString(MSSQLConnections.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
             if ((cboTimeOutConnectTimeout.Enabled) == (true))
             {
 
-                AppStatus.Debugar.EscreverDebugPrint("\t Escrevendo Valor TimeOut...");
+                AppStatus.Debugar.TypeDebugPrint("\t Escrevendo Valor TimeOut...");
 
                 MSSQLConnections.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout = (int.Parse(cboTimeOutConnectTimeout.Text.ToString()));
 
             }
             else
             {
-                AppStatus.Debugar.EscreverDebugPrint("\t Default Valor TimeOut...");
+                AppStatus.Debugar.TypeDebugPrint("\t Default Valor TimeOut...");
             }
-            AppStatus.Debugar.EscreverDebugPrint("\t\t Valor TimeOut Final = " + (Convert.ToString(MSSQLConnections.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
+            AppStatus.Debugar.TypeDebugPrint("\t\t Valor TimeOut Final = " + (Convert.ToString(MSSQLConnections.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
 
-            var ReturnoConn = MSSQLConnections.ConnectionsSQLModelA.FU_RetornaConnection(MSSQLConnections.ConnectionsSQLModelA.EscolhaAcao.ConnectionOpen);
+            var ReturnoConn = MSSQLConnections.ConnectionsSQLModelA.FU_RetornaConnection(MSSQLConnections.ConnectionsSQLModelA.choicesAction.ConnectionOpen);
             
             MessageBox.Show(Convert.ToString(ReturnoConn.Item1) + "   " + Convert.ToString(ReturnoConn.Item2));
 

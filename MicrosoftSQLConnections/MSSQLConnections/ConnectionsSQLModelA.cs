@@ -1,16 +1,18 @@
 ﻿namespace MSSQLConnections
 {
     #region ---> ( Using )
-    //using System.Data.SqlClient;
+    using System;
+    using System.ComponentModel;
+    using System.Data.SqlClient;
     #endregion
     /// <summary>
-    /// Class ConnectionsSQL Simple to Conexao Simple
+    /// Class ConnectionsSQL Simple
     /// </summary>
     public class ConnectionsSQLModelA
     {
         #region --->( Constructor )
         /// <summary>
-        /// Method constructor ConnectionsSQL Simple Simple
+        /// Method Constructor ConnectionsSQL Simple
         /// </summary>
         public ConnectionsSQLModelA()
         {
@@ -21,14 +23,14 @@
         /// <summary>
         /// ConnectionSQL Private
         /// </summary>
-        private static System.Data.SqlClient.SqlConnection connectionSQL = new System.Data.SqlClient.SqlConnection();
+        private static SqlConnection connectionSQL = new SqlConnection();
         #endregion ---> SQL Connection
 
         #region ---> ( String Builder )
         /// <summary>
         /// SQL Connection String Builder --> scsBuilder (Static)
         /// </summary>
-        private static System.Data.SqlClient.SqlConnectionStringBuilder stringBuilderSQL = new System.Data.SqlClient.SqlConnectionStringBuilder();
+        private static SqlConnectionStringBuilder stringBuilderSQL = new SqlConnectionStringBuilder();
         /// <summary>
         /// Complete String Connection with Database
         /// </summary>
@@ -86,15 +88,14 @@
             private get { return stringBuilderSQL.Password; }
             set { stringBuilderSQL.Password = value; }
         }
-
         #endregion ---> String Builder
 
         #region ---> ( Connection Returne )
         /// <summary>
-        /// Escolhas Entre ---> ConnectionClose = 0, ConnectionOpen = 1
+        /// Choices ---> ConnectionClose = 0, ConnectionOpen = 1
         /// </summary>
-        [System.ComponentModel.DefaultValue(ConnectionClose)]
-        public enum EscolhaAcao
+        [DefaultValue(ConnectionClose)]
+        public enum choicesAction
         {
             ConnectionClose = 0,
             ConnectionOpen = 1
@@ -102,28 +103,28 @@
         /// <summary>
         /// SQL function Connection Return--> Tuple-> (SqlConnection, int) tuple.Item1 tuple.Item2
         /// </summary>
-        /// <param name="AcaoEscolhida"></param>
+        /// <param name="ActionChosen"></param>
         /// <returns></returns>
-        public static System.Tuple<System.Data.SqlClient.SqlConnection, int> FU_RetornaConnection(EscolhaAcao AcaoEscolhida)
+        public static Tuple<System.Data.SqlClient.SqlConnection, int> FU_RetornaConnection(choicesAction ActionChosen)
         {
             try
             {
-                switch (AcaoEscolhida)
+                switch (ActionChosen)
                 {
-                    case EscolhaAcao.ConnectionOpen:
+                    case choicesAction.ConnectionOpen:
                         {
                             connectionSQL.ConnectionString = stringBuilderSQL.ConnectionString;
                             connectionSQL.Open();
-                            AcaoEscolhida = EscolhaAcao.ConnectionOpen;
-                            AppStatus.Debugar.EscreverDebugPrint("\t SQL Server Conectado...");
+                            ActionChosen = choicesAction.ConnectionOpen;
+                            AppStatus.Debugar.TypeDebugPrint("\t SQL Server Online...");
                             break;
                         }
-                    case EscolhaAcao.ConnectionClose:
+                    case choicesAction.ConnectionClose:
                         {
                             connectionSQL.Close();
                             connectionSQL.Dispose();
-                            AcaoEscolhida = EscolhaAcao.ConnectionClose;
-                            AppStatus.Debugar.EscreverDebugPrint("\t SQL Server Desconectado...");
+                            ActionChosen = choicesAction.ConnectionClose;
+                            AppStatus.Debugar.TypeDebugPrint("\t SQL Server Offline...");
                             break;
                         }
                     default:
@@ -134,10 +135,10 @@
             }
             catch
             {
-                AcaoEscolhida = EscolhaAcao.ConnectionClose;
-                AppStatus.Debugar.EscreverDebugPrint("\t SQL Server " + "[ERRO]" + " Desconectado...");
+                ActionChosen = choicesAction.ConnectionClose;
+                AppStatus.Debugar.TypeDebugPrint("\t SQL Server " + "[ERRO]" + " Offline...");
             }
-            return System.Tuple.Create(connectionSQL, (int)AcaoEscolhida);
+            return Tuple.Create(connectionSQL, (int)ActionChosen);
         }
         #endregion
     }
