@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7CA8ECD1-5334-499E-A4CF-1CB69220946E}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MSSQLDesktop</RootNamespace>
     <AssemblyName>MSSQLDesktop</AssemblyName>
@@ -59,9 +59,12 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -76,7 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\ConnectionsSQLModelA.cs" />
-    <Compile Include="Class\ConnectionsXML.cs" />
+    <Compile Include="Class\ConnectionsConfig.cs" />
     <Compile Include="Class\Debugar.cs" />
     <Compile Include="Form\frmModelA.cs">
       <SubType>Form</SubType>

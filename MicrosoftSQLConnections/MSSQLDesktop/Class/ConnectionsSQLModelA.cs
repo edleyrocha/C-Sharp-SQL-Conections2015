@@ -105,7 +105,7 @@
         /// <summary>
         /// #SQL function Connection Return--> Tuple-> (SqlConnection, int) tuple.Item1 tuple.Item2
         /// </summary>
-        public static Tuple<System.Data.SqlClient.SqlConnection, int> ReturnConnection(choicesAction ActionChosen)
+        public static Tuple<SqlConnection, int> ReturnConnection(choicesAction ActionChosen)
         {
             try
             {
@@ -113,17 +113,18 @@
                 {
                     case choicesAction.ConnectionOpen:
                         {
-                            connectionSQL.ConnectionString = stringBuilderSQL.ConnectionString;
-                            connectionSQL.Open();
-                            ActionChosen = choicesAction.ConnectionOpen;
+                            MSSQLDesktop.ConnectionsSQLModelA.connectionSQL.ConnectionString = stringBuilderSQL.ConnectionString;
+                            MSSQLDesktop.ConnectionsSQLModelA.connectionSQL.Open();
+                            ActionChosen = MSSQLDesktop.ConnectionsSQLModelA.choicesAction.ConnectionOpen;
+                            connectionSQL.Close();
                             MSSQLDesktop.Debugar.TypeDebugPrint("\t SQL Server Online...");
                             break;
                         }
                     case choicesAction.ConnectionClose:
                         {
-                            connectionSQL.Close();
-                            connectionSQL.Dispose();
-                            ActionChosen = choicesAction.ConnectionClose;
+                            MSSQLDesktop.ConnectionsSQLModelA.connectionSQL.Close();
+                            MSSQLDesktop.ConnectionsSQLModelA.connectionSQL.Dispose();
+                            ActionChosen = MSSQLDesktop.ConnectionsSQLModelA.choicesAction.ConnectionClose;
                             MSSQLDesktop.Debugar.TypeDebugPrint("\t SQL Server Offline...");
                             break;
                         }

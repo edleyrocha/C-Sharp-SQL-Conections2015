@@ -133,10 +133,10 @@
             this.btnOnOff.Name = "btnOnOff";
             this.btnOnOff.Size = new System.Drawing.Size(64, 23);
             this.btnOnOff.TabIndex = 6;
-            this.btnOnOff.Tag = "2";
+            this.btnOnOff.Tag = "0";
             this.btnOnOff.Text = "ON";
             this.btnOnOff.UseVisualStyleBackColor = true;
-            this.btnOnOff.Click += new System.EventHandler(this.btnLigaDesliga_Click);
+            this.btnOnOff.Click += new System.EventHandler(this.btnOnOff_Click);
             // 
             // cboConnectTimeout
             // 
