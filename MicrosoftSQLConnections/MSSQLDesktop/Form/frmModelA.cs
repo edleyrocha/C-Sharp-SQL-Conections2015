@@ -1,25 +1,32 @@
 ﻿namespace MSSQLDesktop
 {
     #region ---> ( Using )
+
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Data;
     using System.Drawing;
+    using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
-    using System.Windows.Forms;
-    using System.Threading.Tasks;
     using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using System.Xml;
 
     #endregion
+
     #region ---> ( Class frmModelA )
+
     /// <summary>
     /// #Class frmModelA Form
     /// </summary>
     public partial class frmModelA : Form
     {
         #region --->( Constructor )
+
         /// <summary>
         /// #Constructor frmModelA
         /// </summary>
@@ -27,7 +34,39 @@
         {
             InitializeComponent();
             TaskForcboConnectTimeoutItens();
+            TaskForAppConfCheck();
             Debugar.Status();
+        }
+
+        #endregion
+
+        #region --->( List of Tasks )
+        /// <summary>
+        /// #Task For cboConnectTimeout Itens
+        /// </summary>
+        private void TaskForcboConnectTimeoutItens()
+        {
+            Thread taskCreateNumberList = new Thread(CreateNumberListStrings);
+            taskCreateNumberList.Start();
+        }
+        /// <summary>
+        /// #Task For App.Conf Check
+        /// </summary>
+        private void TaskForAppConfCheck()
+        {
+            Thread taskCheckAppConf = new Thread(() =>
+                {
+                    if (!File.Exists((Directory.GetCurrentDirectory()) + (@"\App.Config")))
+                    {
+                        System.Text.StringBuilder sb = new StringBuilder();
+                        sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
+                        sb.AppendLine("<configuration>");
+                        sb.AppendLine("</configuration>");
+                        System.IO.File.WriteAllText(String.Concat((Directory.GetCurrentDirectory()), (@"\App.Config")), sb.ToString());
+                    }
+                });
+           MSSQLDesktop.Debugar.TypeDebugPrint("\r Task for Check App.conf = Started");
+           taskCheckAppConf.Start();
         }
         #endregion
 
@@ -68,11 +107,7 @@
             ON = 1,
             OFF = 0
         }
-        private void TaskForcboConnectTimeoutItens()
-        {
-            Thread taskCreateNumberList = new Thread(CreateNumberListStrings);
-            taskCreateNumberList.Start();
-        }
+
         private string[] itensRageForcboConnectTimeout = new string[999];
         private void CreateNumberListStrings()
         {
