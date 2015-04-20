@@ -58,11 +58,14 @@
                 {
                     if (!File.Exists((Directory.GetCurrentDirectory()) + (@"\App.Config")))
                     {
-                        System.Text.StringBuilder sb = new StringBuilder();
-                        sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
-                        sb.AppendLine("<configuration>");
-                        sb.AppendLine("</configuration>");
-                        System.IO.File.WriteAllText(String.Concat((Directory.GetCurrentDirectory()), (@"\App.Config")), sb.ToString());
+                        XmlDocument AppConfigXML = new XmlDocument();
+                        XmlDeclaration xmldecl;
+                        xmldecl = AppConfigXML.CreateXmlDeclaration(("1.0"), (Convert.ToString(Encoding.UTF8.WebName)), (String.Empty));
+                        AppConfigXML.AppendChild(xmldecl);
+                        XmlElement xmlElem = AppConfigXML.CreateElement("configuration");
+                        xmlElem.InnerText = "";
+                        AppConfigXML.AppendChild(xmlElem);
+                        AppConfigXML.Save(String.Concat((Directory.GetCurrentDirectory()), (@"\App.Config")));
                     }
                 });
            MSSQLDesktop.Debugar.TypeDebugPrint("\r Task for Check App.conf = Started");
