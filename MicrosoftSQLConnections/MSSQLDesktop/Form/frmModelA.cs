@@ -10,6 +10,7 @@
     using System.Text;
     using System.Windows.Forms;
     using System.Threading.Tasks;
+    using System.Threading;
 
     #endregion
     #region ---> ( Class frmModelA )
@@ -25,6 +26,7 @@
         public frmModelA()
         {
             InitializeComponent();
+            TaskForcboConnectTimeoutItens();
             Debugar.Status();
         }
         #endregion
@@ -66,43 +68,46 @@
             ON = 1,
             OFF = 0
         }
-
-        private void btnOnOff_Click(object sender, EventArgs e)
+        private void TaskForcboConnectTimeoutItens()
         {
+            Thread taskCreateNumberList = new Thread(CreateNumberListStrings);
+            taskCreateNumberList.Start();
+        }
+        private string[] itensRageForcboConnectTimeout = new string[999];
+        private void CreateNumberListStrings()
+        {
+            for (int numberList = 0; numberList < itensRageForcboConnectTimeout.Length; numberList++)
+            {
+                itensRageForcboConnectTimeout[numberList] = Convert.ToString(numberList + (1));
+                MSSQLDesktop.Debugar.TypeDebugPrint("\r ItensList [TOTAL] = " + itensRageForcboConnectTimeout[numberList]);
+            }
+        }
+        private void OnAndOff()
+        {
+            if ((cboConnectTimeout.Items.Count) == (0))
+            {
+                cboConnectTimeout.Items.AddRange(itensRageForcboConnectTimeout);
+            }
             if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)TimeOutOnOff.ON))
             {
-                MSSQLDesktop.Debugar.TypeDebugPrint("\r\r\r btnLigaDesliga = ON");
-                lblConnectTimeout.Enabled = (!lblConnectTimeout.Enabled);
-                cboConnectTimeout.Enabled = (!true);
-                cboConnectTimeout.Items.Clear();
-                cboConnectTimeout.Text = (String.Empty);
-
-
+                MSSQLDesktop.Debugar.TypeDebugPrint("\r btnOnOff ---> ON");
+                cboConnectTimeout.Enabled = (!cboConnectTimeout.Enabled);
+                cboConnectTimeout.Text = (string.Empty);
+                btnOnOff.Tag = Convert.ToChar((int)TimeOutOnOff.OFF);
                 btnOnOff.Text = Convert.ToString((TimeOutOnOff)(Convert.ToInt32(btnOnOff.Tag)));
-                btnOnOff.Tag = Convert.ToChar((TimeOutOnOff)0);
-
-                MSSQLDesktop.Debugar.TypeDebugPrint("\r ItensList [CLEAR] = " + Convert.ToString(cboConnectTimeout.Items.Count));
             }
             else if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)TimeOutOnOff.OFF))
             {
-                MSSQLDesktop.Debugar.TypeDebugPrint("\r\r\r btnLigaDesliga = OFF");
-
-                lblConnectTimeout.Enabled = (!lblConnectTimeout.Enabled);
-                cboConnectTimeout.Enabled = (true);
-
+                MSSQLDesktop.Debugar.TypeDebugPrint("\r btnOnOff ---> OFF");
+                cboConnectTimeout.Enabled = (!cboConnectTimeout.Enabled);
+                cboConnectTimeout.Text = Convert.ToString(cboConnectTimeout.Items[((15) - (1))].ToString());
+                btnOnOff.Tag = Convert.ToChar((int)TimeOutOnOff.ON);
                 btnOnOff.Text = Convert.ToString((TimeOutOnOff)(Convert.ToInt32(btnOnOff.Tag)));
-                btnOnOff.Tag = Convert.ToChar((TimeOutOnOff)1);
-
-                int[] ItensList = new int[999];
-                foreach (int Itens in ItensList)
-                {
-                    ItensList[0]++;
-                    cboConnectTimeout.Items.Add(Convert.ToString(ItensList[0]));
-                    MSSQLDesktop.Debugar.TypeDebugPrint("\r ItensList [TOTAL] = " + Convert.ToString(ItensList[0]));
-                }
-                
-                cboConnectTimeout.Text = Convert.ToString(cboConnectTimeout.Items[29].ToString());
             }
+        }
+        private void btnOnOff_Click(object sender, EventArgs e)
+        {
+            this.OnAndOff();
         }
 
         #endregion ---> btnLigaDesliga Completo
@@ -113,12 +118,10 @@
         /// </summary>
         private void EnableDisableLogin()
         {
-            txtUserID.Enabled = !(txtUserID.Enabled);
-            lblUserID.Enabled = !(lblUserID.Enabled);
-            txtPassword.Enabled = !(txtPassword.Enabled);
-            lblPassword.Enabled = !(lblPassword.Enabled);
-            rbtSQLServer.Enabled = !(rbtSQLServer.Enabled);
-            rbtWindowsLocal.Enabled = !(rbtWindowsLocal.Enabled);
+            txtUserID.Enabled = (!txtUserID.Enabled);
+            txtPassword.Enabled = (!txtPassword.Enabled);
+            rbtSQLServer.Enabled = (!rbtSQLServer.Enabled);
+            rbtWindowsLocal.Enabled = (!rbtWindowsLocal.Enabled);
             MSSQLDesktop.Debugar.TypeDebugPrint("Status Login = " + Convert.ToString(txtUserID.Enabled));
         }
         private void rbtWindowsLocal_Click(object sender, EventArgs e)
@@ -136,8 +139,8 @@
         {
             Task tk = new Task(StartConnection);
             tk.Start();
- 
-         }
+
+        }
 
         public void StartConnection()
         {
