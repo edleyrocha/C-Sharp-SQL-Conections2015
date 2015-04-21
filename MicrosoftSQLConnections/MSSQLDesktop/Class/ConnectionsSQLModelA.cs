@@ -34,20 +34,20 @@
         /// </summary>
         private static SqlConnectionStringBuilder stringBuilderSQL = new SqlConnectionStringBuilder();
         /// <summary>
-        /// #Complete String Connection with Database
+        /// #User ID Login
         /// </summary>
-        public static string StringBuilderSQL_ConnectionString
+        public static string StringBuilderSQL_UserID
         {
-            get { return stringBuilderSQL.ConnectionString; }
-            set { stringBuilderSQL.ConnectionString = value; }
+            private get { return stringBuilderSQL.UserID; }
+            set { stringBuilderSQL.UserID = value; }
         }
         /// <summary>
-        /// #TimeOut Connection
+        /// #Password for SQL Server
         /// </summary>
-        public static int StringBuilderSQL_ConnectTimeout
+        public static string StringBuilderSQL_Password
         {
-            get { return stringBuilderSQL.ConnectTimeout; }
-            set { stringBuilderSQL.ConnectTimeout = value; }
+            private get { return stringBuilderSQL.Password; }
+            set { stringBuilderSQL.Password = value; }
         }
         /// <summary>
         /// #Address Server SQL - Name/IP 
@@ -58,6 +58,14 @@
             set { stringBuilderSQL.DataSource = value; }
         }
         /// <summary>
+        /// #TimeOut Connection
+        /// </summary>
+        public static int StringBuilderSQL_ConnectTimeout
+        {
+            get { return stringBuilderSQL.ConnectTimeout; }
+            set { stringBuilderSQL.ConnectTimeout = value; }
+        }
+        /// <summary>
         /// #Name DataBase
         /// </summary>
         public static string StringBuilderSQL_InitialCatalog
@@ -66,7 +74,15 @@
             set { stringBuilderSQL.InitialCatalog = value; }
         }
         /// <summary>
-        /// #Security Type
+        /// #Complete String Connection with Database
+        /// </summary>
+        public static string StringBuilderSQL_ConnectionString
+        {
+            get { return stringBuilderSQL.ConnectionString; }
+            set { stringBuilderSQL.ConnectionString = value; }
+        }
+        /// <summary>
+        /// #Security Type Login Windows Local
         /// </summary>
         public static bool StringBuilderSQL_IntegratedSecurity
         {
@@ -74,21 +90,12 @@
             set { stringBuilderSQL.IntegratedSecurity = value; }
         }
         /// <summary>
-        /// #User ID Login
+        /// #Security Type Login SQL Server
         /// </summary>
-        public static string StringBuilderSQL_UserID
+        public static bool StringBuilderSQL_PersistSecurityInfo
         {
-            private get { return stringBuilderSQL.UserID; }
-            set { stringBuilderSQL.UserID = value; }
-        }
-
-        /// <summary>
-        /// #Password for SQL Server
-        /// </summary>
-        public static string StringBuilderSQL_Password
-        {
-            private get { return stringBuilderSQL.Password; }
-            set { stringBuilderSQL.Password = value; }
+            private get { return stringBuilderSQL.PersistSecurityInfo; }
+            set { stringBuilderSQL.PersistSecurityInfo = value; }
         }
         #endregion ---> String Builder
 

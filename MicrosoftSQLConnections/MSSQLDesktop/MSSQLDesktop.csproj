@@ -67,6 +67,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -78,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\AppConfigXML.cs" />
     <Compile Include="Class\ConnectionsSQLModelA.cs" />
     <Compile Include="Class\ConnectionsConfig.cs" />
     <Compile Include="Class\Debugar.cs" />

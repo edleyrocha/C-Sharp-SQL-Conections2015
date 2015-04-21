@@ -36,17 +36,17 @@
             this.btnShowHide = new System.Windows.Forms.Button();
             this.btnOnOff = new System.Windows.Forms.Button();
             this.cboConnectTimeout = new System.Windows.Forms.ComboBox();
-            this.rbtSQLServer = new System.Windows.Forms.RadioButton();
-            this.rbtWindowsLocal = new System.Windows.Forms.RadioButton();
+            this.rbtSQLServerIntegratedSecurity = new System.Windows.Forms.RadioButton();
+            this.rbtWindowsLocalIntegratedSecurity = new System.Windows.Forms.RadioButton();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUserID = new System.Windows.Forms.TextBox();
-            this.txtDataInitialCatalog = new System.Windows.Forms.TextBox();
-            this.txtServerDataSource = new System.Windows.Forms.TextBox();
+            this.txtInitialCatalog = new System.Windows.Forms.TextBox();
+            this.txtDataSource = new System.Windows.Forms.TextBox();
             this.lblConnectTimeout = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblUserID = new System.Windows.Forms.Label();
-            this.lblDataInitialCatalog = new System.Windows.Forms.Label();
-            this.lblServerDataSource = new System.Windows.Forms.Label();
+            this.lblInitialCatalog = new System.Windows.Forms.Label();
+            this.lbDataSource = new System.Windows.Forms.Label();
             this.grpModelA.SuspendLayout();
             this.pnlModelServerLogin.SuspendLayout();
             this.pnlBtnShowHideAndBtnOnOff.SuspendLayout();
@@ -69,17 +69,17 @@
             this.pnlModelServerLogin.Controls.Add(this.btnClose);
             this.pnlModelServerLogin.Controls.Add(this.pnlBtnShowHideAndBtnOnOff);
             this.pnlModelServerLogin.Controls.Add(this.cboConnectTimeout);
-            this.pnlModelServerLogin.Controls.Add(this.rbtSQLServer);
-            this.pnlModelServerLogin.Controls.Add(this.rbtWindowsLocal);
+            this.pnlModelServerLogin.Controls.Add(this.rbtSQLServerIntegratedSecurity);
+            this.pnlModelServerLogin.Controls.Add(this.rbtWindowsLocalIntegratedSecurity);
             this.pnlModelServerLogin.Controls.Add(this.txtPassword);
             this.pnlModelServerLogin.Controls.Add(this.txtUserID);
-            this.pnlModelServerLogin.Controls.Add(this.txtDataInitialCatalog);
-            this.pnlModelServerLogin.Controls.Add(this.txtServerDataSource);
+            this.pnlModelServerLogin.Controls.Add(this.txtInitialCatalog);
+            this.pnlModelServerLogin.Controls.Add(this.txtDataSource);
             this.pnlModelServerLogin.Controls.Add(this.lblConnectTimeout);
             this.pnlModelServerLogin.Controls.Add(this.lblPassword);
             this.pnlModelServerLogin.Controls.Add(this.lblUserID);
-            this.pnlModelServerLogin.Controls.Add(this.lblDataInitialCatalog);
-            this.pnlModelServerLogin.Controls.Add(this.lblServerDataSource);
+            this.pnlModelServerLogin.Controls.Add(this.lblInitialCatalog);
+            this.pnlModelServerLogin.Controls.Add(this.lbDataSource);
             this.pnlModelServerLogin.Location = new System.Drawing.Point(6, 19);
             this.pnlModelServerLogin.Name = "pnlModelServerLogin";
             this.pnlModelServerLogin.Size = new System.Drawing.Size(272, 187);
@@ -147,31 +147,31 @@
             this.cboConnectTimeout.Size = new System.Drawing.Size(100, 21);
             this.cboConnectTimeout.TabIndex = 7;
             // 
-            // rbtSQLServer
+            // rbtSQLServerIntegratedSecurity
             // 
-            this.rbtSQLServer.AutoSize = true;
-            this.rbtSQLServer.Checked = true;
-            this.rbtSQLServer.Enabled = false;
-            this.rbtSQLServer.Location = new System.Drawing.Point(110, 134);
-            this.rbtSQLServer.Name = "rbtSQLServer";
-            this.rbtSQLServer.Size = new System.Drawing.Size(80, 17);
-            this.rbtSQLServer.TabIndex = 8;
-            this.rbtSQLServer.TabStop = true;
-            this.rbtSQLServer.Text = "SQL Server";
-            this.rbtSQLServer.UseVisualStyleBackColor = true;
-            this.rbtSQLServer.Click += new System.EventHandler(this.rbtSQLServer_Click);
+            this.rbtSQLServerIntegratedSecurity.AutoSize = true;
+            this.rbtSQLServerIntegratedSecurity.Checked = true;
+            this.rbtSQLServerIntegratedSecurity.Enabled = false;
+            this.rbtSQLServerIntegratedSecurity.Location = new System.Drawing.Point(110, 134);
+            this.rbtSQLServerIntegratedSecurity.Name = "rbtSQLServerIntegratedSecurity";
+            this.rbtSQLServerIntegratedSecurity.Size = new System.Drawing.Size(80, 17);
+            this.rbtSQLServerIntegratedSecurity.TabIndex = 8;
+            this.rbtSQLServerIntegratedSecurity.TabStop = true;
+            this.rbtSQLServerIntegratedSecurity.Text = "SQL Server";
+            this.rbtSQLServerIntegratedSecurity.UseVisualStyleBackColor = true;
+            this.rbtSQLServerIntegratedSecurity.Click += new System.EventHandler(this.rbtSQLServer_Click);
             // 
-            // rbtWindowsLocal
+            // rbtWindowsLocalIntegratedSecurity
             // 
-            this.rbtWindowsLocal.AutoSize = true;
-            this.rbtWindowsLocal.Location = new System.Drawing.Point(12, 134);
-            this.rbtWindowsLocal.Name = "rbtWindowsLocal";
-            this.rbtWindowsLocal.Size = new System.Drawing.Size(98, 17);
-            this.rbtWindowsLocal.TabIndex = 9;
-            this.rbtWindowsLocal.TabStop = true;
-            this.rbtWindowsLocal.Text = "Windows Local";
-            this.rbtWindowsLocal.UseVisualStyleBackColor = true;
-            this.rbtWindowsLocal.Click += new System.EventHandler(this.rbtWindowsLocal_Click);
+            this.rbtWindowsLocalIntegratedSecurity.AutoSize = true;
+            this.rbtWindowsLocalIntegratedSecurity.Location = new System.Drawing.Point(12, 134);
+            this.rbtWindowsLocalIntegratedSecurity.Name = "rbtWindowsLocalIntegratedSecurity";
+            this.rbtWindowsLocalIntegratedSecurity.Size = new System.Drawing.Size(98, 17);
+            this.rbtWindowsLocalIntegratedSecurity.TabIndex = 9;
+            this.rbtWindowsLocalIntegratedSecurity.TabStop = true;
+            this.rbtWindowsLocalIntegratedSecurity.Text = "Windows Local";
+            this.rbtWindowsLocalIntegratedSecurity.UseVisualStyleBackColor = true;
+            this.rbtWindowsLocalIntegratedSecurity.Click += new System.EventHandler(this.rbtWindowsLocal_Click);
             // 
             // txtPassword
             // 
@@ -188,19 +188,19 @@
             this.txtUserID.Size = new System.Drawing.Size(177, 20);
             this.txtUserID.TabIndex = 3;
             // 
-            // txtDataInitialCatalog
+            // txtInitialCatalog
             // 
-            this.txtDataInitialCatalog.Location = new System.Drawing.Point(90, 29);
-            this.txtDataInitialCatalog.Name = "txtDataInitialCatalog";
-            this.txtDataInitialCatalog.Size = new System.Drawing.Size(177, 20);
-            this.txtDataInitialCatalog.TabIndex = 2;
+            this.txtInitialCatalog.Location = new System.Drawing.Point(90, 29);
+            this.txtInitialCatalog.Name = "txtInitialCatalog";
+            this.txtInitialCatalog.Size = new System.Drawing.Size(177, 20);
+            this.txtInitialCatalog.TabIndex = 2;
             // 
-            // txtServerDataSource
+            // txtDataSource
             // 
-            this.txtServerDataSource.Location = new System.Drawing.Point(90, 3);
-            this.txtServerDataSource.Name = "txtServerDataSource";
-            this.txtServerDataSource.Size = new System.Drawing.Size(177, 20);
-            this.txtServerDataSource.TabIndex = 1;
+            this.txtDataSource.Location = new System.Drawing.Point(90, 3);
+            this.txtDataSource.Name = "txtDataSource";
+            this.txtDataSource.Size = new System.Drawing.Size(177, 20);
+            this.txtDataSource.TabIndex = 1;
             // 
             // lblConnectTimeout
             // 
@@ -232,25 +232,25 @@
             this.lblUserID.TabIndex = 0;
             this.lblUserID.Text = "Login..:";
             // 
-            // lblDataInitialCatalog
+            // lblInitialCatalog
             // 
-            this.lblDataInitialCatalog.AutoSize = true;
-            this.lblDataInitialCatalog.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDataInitialCatalog.Location = new System.Drawing.Point(2, 30);
-            this.lblDataInitialCatalog.Name = "lblDataInitialCatalog";
-            this.lblDataInitialCatalog.Size = new System.Drawing.Size(84, 19);
-            this.lblDataInitialCatalog.TabIndex = 0;
-            this.lblDataInitialCatalog.Text = "Database..:";
+            this.lblInitialCatalog.AutoSize = true;
+            this.lblInitialCatalog.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInitialCatalog.Location = new System.Drawing.Point(2, 30);
+            this.lblInitialCatalog.Name = "lblInitialCatalog";
+            this.lblInitialCatalog.Size = new System.Drawing.Size(84, 19);
+            this.lblInitialCatalog.TabIndex = 0;
+            this.lblInitialCatalog.Text = "Database..:";
             // 
-            // lblServerDataSource
+            // lbDataSource
             // 
-            this.lblServerDataSource.AutoSize = true;
-            this.lblServerDataSource.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblServerDataSource.Location = new System.Drawing.Point(22, 4);
-            this.lblServerDataSource.Name = "lblServerDataSource";
-            this.lblServerDataSource.Size = new System.Drawing.Size(64, 19);
-            this.lblServerDataSource.TabIndex = 0;
-            this.lblServerDataSource.Text = "Server..:";
+            this.lbDataSource.AutoSize = true;
+            this.lbDataSource.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDataSource.Location = new System.Drawing.Point(22, 4);
+            this.lbDataSource.Name = "lbDataSource";
+            this.lbDataSource.Size = new System.Drawing.Size(64, 19);
+            this.lbDataSource.TabIndex = 0;
+            this.lbDataSource.Text = "Server..:";
             // 
             // frmModelA
             // 
@@ -281,16 +281,16 @@
         private System.Windows.Forms.Panel pnlModelServerLogin;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblUserID;
-        private System.Windows.Forms.Label lblDataInitialCatalog;
-        private System.Windows.Forms.Label lblServerDataSource;
+        private System.Windows.Forms.Label lblInitialCatalog;
+        private System.Windows.Forms.Label lbDataSource;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtUserID;
-        private System.Windows.Forms.TextBox txtDataInitialCatalog;
-        private System.Windows.Forms.TextBox txtServerDataSource;
+        private System.Windows.Forms.TextBox txtInitialCatalog;
+        private System.Windows.Forms.TextBox txtDataSource;
         private System.Windows.Forms.Button btnShowHide;
         private System.Windows.Forms.ComboBox cboConnectTimeout;
-        private System.Windows.Forms.RadioButton rbtSQLServer;
-        private System.Windows.Forms.RadioButton rbtWindowsLocal;
+        private System.Windows.Forms.RadioButton rbtSQLServerIntegratedSecurity;
+        private System.Windows.Forms.RadioButton rbtWindowsLocalIntegratedSecurity;
         private System.Windows.Forms.Label lblConnectTimeout;
         private System.Windows.Forms.Button btnOnOff;
         private System.Windows.Forms.Panel pnlBtnShowHideAndBtnOnOff;

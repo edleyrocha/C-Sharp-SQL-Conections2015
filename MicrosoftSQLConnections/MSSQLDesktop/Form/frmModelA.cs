@@ -33,8 +33,8 @@
         public frmModelA()
         {
             InitializeComponent();
-            TaskForcboConnectTimeoutItens();
-            TaskForAppConfCheck();
+            execTaskForcboConnectTimeoutItens();
+            execTaskForAppConfCheck();
             Debugar.Status();
         }
 
@@ -42,35 +42,22 @@
 
         #region --->( List of Tasks )
         /// <summary>
-        /// #Task For cboConnectTimeout Itens
+        /// #Task For cboTimeOut Itens
         /// </summary>
-        private void TaskForcboConnectTimeoutItens()
+        private void execTaskForcboConnectTimeoutItens()
         {
             Thread taskCreateNumberList = new Thread(CreateNumberListStrings);
             taskCreateNumberList.Start();
         }
         /// <summary>
-        /// #Task For App.Conf Check
+        /// #Task For App.Conf Check File Exist
         /// </summary>
-        private void TaskForAppConfCheck()
+        private void execTaskForAppConfCheck()
         {
-            Thread taskCheckAppConf = new Thread(() =>
-                {
-                    if (!File.Exists((Directory.GetCurrentDirectory()) + (@"\App.Config")))
-                    {
-                        XmlDocument AppConfigXML = new XmlDocument();
-                        XmlDeclaration xmldecl;
-                        xmldecl = AppConfigXML.CreateXmlDeclaration(("1.0"), (Convert.ToString(Encoding.UTF8.WebName)), (String.Empty));
-                        AppConfigXML.AppendChild(xmldecl);
-                        XmlElement xmlElem = AppConfigXML.CreateElement("configuration");
-                        xmlElem.InnerText = "";
-                        AppConfigXML.AppendChild(xmlElem);
-                        AppConfigXML.Save(String.Concat((Directory.GetCurrentDirectory()), (@"\App.Config")));
-                    }
-                });
-           MSSQLDesktop.Debugar.TypeDebugPrint("\r Task for Check App.conf = Started");
-           taskCheckAppConf.Start();
+            AppConfigXML appConfigXML = new AppConfigXML();
+            appConfigXML.TaskForAppConfCheckFileExist();
         }
+
         #endregion
 
         #region ---> btnSair Super Simples
@@ -154,30 +141,30 @@
         /// <summary>
         /// Enables disables Components
         /// </summary>
-        private void EnableDisableLogin()
+        private void EnableDisableLoginAndPassword()
         {
             txtUserID.Enabled = (!txtUserID.Enabled);
             txtPassword.Enabled = (!txtPassword.Enabled);
-            rbtSQLServer.Enabled = (!rbtSQLServer.Enabled);
-            rbtWindowsLocal.Enabled = (!rbtWindowsLocal.Enabled);
+            rbtSQLServerIntegratedSecurity.Enabled = (!rbtSQLServerIntegratedSecurity.Enabled);
+            rbtWindowsLocalIntegratedSecurity.Enabled = (!rbtWindowsLocalIntegratedSecurity.Enabled);
             MSSQLDesktop.Debugar.TypeDebugPrint("Status Login = " + Convert.ToString(txtUserID.Enabled));
         }
         private void rbtWindowsLocal_Click(object sender, EventArgs e)
         {
-            EnableDisableLogin();
+            EnableDisableLoginAndPassword();
         }
         private void rbtSQLServer_Click(object sender, EventArgs e)
         {
-            EnableDisableLogin();
+            EnableDisableLoginAndPassword();
         }
         #endregion ---> Escolhas rbt WindowsLocal e SQLServer
 
         #region ---> btnConectar ao Server
         private void btnConectar_Click(object sender, EventArgs e)
         {
-            Task tk = new Task(StartConnection);
-            tk.Start();
-
+            // Task tk = new Task(StartConnection);
+            // tk.Start();
+            //ValidateFieldsOnForm(ChoiceFieldValidate.ConnectionString);
         }
 
         public void StartConnection()
@@ -185,11 +172,11 @@
             ///Clean
             ConnectionsSQLModelA.StringBuilderSQL_ConnectionString = (String.Empty);
 
-            MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_DataSource = (txtServerDataSource.Text.ToString());
-            MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_InitialCatalog = (txtDataInitialCatalog.Text.ToString());
+            MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_DataSource = (txtDataSource.Text.ToString());
+            MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_InitialCatalog = (txtInitialCatalog.Text.ToString());
 
             /// Choice rbtSQLServer and rbtWindowsLocal
-            if (((rbtSQLServer.Checked) == (true)) | ((rbtWindowsLocal.Checked) == ((false))))
+            if (((rbtSQLServerIntegratedSecurity.Checked) == (true)) | ((rbtWindowsLocalIntegratedSecurity.Checked) == ((false))))
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r \tLogin via SQL Server");
 
@@ -197,7 +184,7 @@
                 MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_Password = (txtPassword.Text.ToString());
 
             }
-            else if (((rbtWindowsLocal.Checked) == (true)) | ((rbtSQLServer.Checked) == ((false))))
+            else if (((rbtWindowsLocalIntegratedSecurity.Checked) == (true)) | ((rbtSQLServerIntegratedSecurity.Checked) == ((false))))
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r \tLogin via Windows Local");
 
@@ -206,7 +193,7 @@
 
             }
 
-            MSSQLDesktop.Debugar.TypeDebugPrint("\r\t Valor TimeOut Atual = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
+            MSSQLDesktop.Debugar.TypeDebugPrint("\r\t Valor TimeOut Current = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
             if ((cboConnectTimeout.Enabled) == (true))
             {
 
@@ -222,9 +209,122 @@
             MSSQLDesktop.Debugar.TypeDebugPrint("\t\t Value TimeOut Final = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
 
             var ReturnoConn = MSSQLDesktop.ConnectionsSQLModelA.ReturnConnection(MSSQLDesktop.ConnectionsSQLModelA.choicesAction.ConnectionOpen);
-
             MessageBox.Show(Convert.ToString(ReturnoConn.Item1) + "   " + Convert.ToString(ReturnoConn.Item2));
 
+        }
+        #endregion
+
+        #region ---> ( Validate )
+        private enum ChoiceFieldValidate
+        {
+            UserID = (1),
+            Password = (2),
+            DataSource = (3),
+            ConnectTimeout = (4),
+            InitialCatalog = (5),
+            ConnectionString = (6),
+            IntegratedSecurity = (7),
+            PersistSecurityInfo = (8)
+        }
+        private string ValidateFieldsOnForm(ChoiceFieldValidate choiceFieldValidate)
+        {
+            String returnResult = (String.Empty);
+            switch (choiceFieldValidate)
+            {
+                case (ChoiceFieldValidate.UserID):
+                    {
+                        if (!(string.IsNullOrEmpty(txtUserID.Text.ToString())))
+                        {
+                            returnResult = (txtUserID.Text.ToString());
+                        }
+                        else
+                        {
+                            MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - Login Is Null Or Empty");
+                        }
+                        break;
+                    }
+                case (ChoiceFieldValidate.Password):
+                    {
+                        if (!(string.IsNullOrEmpty(txtPassword.Text.ToString())))
+                        {
+                            returnResult = (txtPassword.Text.ToString());
+                        }
+                        else
+                        {
+                            MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - Password Is Null Or Empty");
+                        }
+                        break;
+                    }
+                case (ChoiceFieldValidate.DataSource):
+                    {
+                        if (!(string.IsNullOrEmpty(txtDataSource.Text.ToString())))
+                        {
+                            returnResult = (txtDataSource.Text.ToString());
+                        }
+                        else
+                        {
+                            MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - Server Is Null Or Empty");
+                        }
+                        break;
+                    }
+                case (ChoiceFieldValidate.ConnectTimeout):
+                    {
+                        if (!(string.IsNullOrEmpty(cboConnectTimeout.Text.ToString())))
+                        {
+                            returnResult = (cboConnectTimeout.Text.ToString());
+                        }
+                        else
+                        {
+                            MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - TimeOut Is Null Or Empty");
+                        }
+                        break;
+                    }
+                case (ChoiceFieldValidate.InitialCatalog):
+                    {
+                        if (!(string.IsNullOrEmpty(txtInitialCatalog.Text.ToString())))
+                        {
+                            returnResult = (txtInitialCatalog.Text.ToString());
+                        }
+                        else
+                        {
+                            MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - DataBase Is Null Or Empty");
+                        }
+                        break;
+                    }
+                case (ChoiceFieldValidate.ConnectionString):
+                    {
+                        ValidateFieldsOnForm(ChoiceFieldValidate.UserID);
+                        ValidateFieldsOnForm(ChoiceFieldValidate.Password);
+                        ValidateFieldsOnForm(ChoiceFieldValidate.DataSource);
+                        ValidateFieldsOnForm(ChoiceFieldValidate.ConnectTimeout);
+                        ValidateFieldsOnForm(ChoiceFieldValidate.InitialCatalog);
+                        ValidateFieldsOnForm(ChoiceFieldValidate.IntegratedSecurity);
+                        break;
+                    }
+                case (ChoiceFieldValidate.IntegratedSecurity):
+                    {
+                        if (((rbtSQLServerIntegratedSecurity.Checked) == (true)) | ((rbtWindowsLocalIntegratedSecurity.Checked) == ((false))))
+                        {
+                            returnResult = (Convert.ToString(false));
+                        }
+                        if (((rbtWindowsLocalIntegratedSecurity.Checked) == (true)) | ((rbtSQLServerIntegratedSecurity.Checked) == ((false))))
+                        {
+                            returnResult = (Convert.ToString(true));
+                        }
+                        break;
+                    }
+                case (ChoiceFieldValidate.PersistSecurityInfo):
+                    {
+
+                        break;
+                    }
+                default:
+                    {
+                        returnResult = "-0-";
+                        break;
+                    }
+            }
+            return returnResult;
         }
         #endregion
     }
