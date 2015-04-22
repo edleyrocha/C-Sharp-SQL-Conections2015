@@ -1,6 +1,6 @@
 ﻿namespace MSSQLDesktop
 {
-    partial class frmModelA
+    partial class frmModel
     {
         /// <summary>
         /// Required designer variable.
@@ -36,7 +36,7 @@
             this.btnShowHide = new System.Windows.Forms.Button();
             this.btnOnOff = new System.Windows.Forms.Button();
             this.cboConnectTimeout = new System.Windows.Forms.ComboBox();
-            this.rbtSQLServerIntegratedSecurity = new System.Windows.Forms.RadioButton();
+            this.rbtServerSQLIntegratedSecurity = new System.Windows.Forms.RadioButton();
             this.rbtWindowsLocalIntegratedSecurity = new System.Windows.Forms.RadioButton();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUserID = new System.Windows.Forms.TextBox();
@@ -60,7 +60,7 @@
             this.grpModelA.Size = new System.Drawing.Size(284, 213);
             this.grpModelA.TabIndex = 0;
             this.grpModelA.TabStop = false;
-            this.grpModelA.Text = "SQL Connection Model A";
+            this.grpModelA.Text = "SQL Connection";
             // 
             // pnlModelServerLogin
             // 
@@ -69,7 +69,7 @@
             this.pnlModelServerLogin.Controls.Add(this.btnClose);
             this.pnlModelServerLogin.Controls.Add(this.pnlBtnShowHideAndBtnOnOff);
             this.pnlModelServerLogin.Controls.Add(this.cboConnectTimeout);
-            this.pnlModelServerLogin.Controls.Add(this.rbtSQLServerIntegratedSecurity);
+            this.pnlModelServerLogin.Controls.Add(this.rbtServerSQLIntegratedSecurity);
             this.pnlModelServerLogin.Controls.Add(this.rbtWindowsLocalIntegratedSecurity);
             this.pnlModelServerLogin.Controls.Add(this.txtPassword);
             this.pnlModelServerLogin.Controls.Add(this.txtUserID);
@@ -94,7 +94,7 @@
             this.btnConnect.Tag = "2";
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConectar_Click);
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // btnClose
             // 
@@ -105,7 +105,7 @@
             this.btnClose.Tag = "2";
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnSair_Click);
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // pnlBtnShowHideAndBtnOnOff
             // 
@@ -147,19 +147,19 @@
             this.cboConnectTimeout.Size = new System.Drawing.Size(100, 21);
             this.cboConnectTimeout.TabIndex = 7;
             // 
-            // rbtSQLServerIntegratedSecurity
+            // rbtServerSQLIntegratedSecurity
             // 
-            this.rbtSQLServerIntegratedSecurity.AutoSize = true;
-            this.rbtSQLServerIntegratedSecurity.Checked = true;
-            this.rbtSQLServerIntegratedSecurity.Enabled = false;
-            this.rbtSQLServerIntegratedSecurity.Location = new System.Drawing.Point(110, 134);
-            this.rbtSQLServerIntegratedSecurity.Name = "rbtSQLServerIntegratedSecurity";
-            this.rbtSQLServerIntegratedSecurity.Size = new System.Drawing.Size(80, 17);
-            this.rbtSQLServerIntegratedSecurity.TabIndex = 8;
-            this.rbtSQLServerIntegratedSecurity.TabStop = true;
-            this.rbtSQLServerIntegratedSecurity.Text = "SQL Server";
-            this.rbtSQLServerIntegratedSecurity.UseVisualStyleBackColor = true;
-            this.rbtSQLServerIntegratedSecurity.Click += new System.EventHandler(this.rbtSQLServer_Click);
+            this.rbtServerSQLIntegratedSecurity.AutoSize = true;
+            this.rbtServerSQLIntegratedSecurity.Checked = true;
+            this.rbtServerSQLIntegratedSecurity.Enabled = false;
+            this.rbtServerSQLIntegratedSecurity.Location = new System.Drawing.Point(110, 134);
+            this.rbtServerSQLIntegratedSecurity.Name = "rbtServerSQLIntegratedSecurity";
+            this.rbtServerSQLIntegratedSecurity.Size = new System.Drawing.Size(80, 17);
+            this.rbtServerSQLIntegratedSecurity.TabIndex = 8;
+            this.rbtServerSQLIntegratedSecurity.TabStop = true;
+            this.rbtServerSQLIntegratedSecurity.Text = "SQL Server";
+            this.rbtServerSQLIntegratedSecurity.UseVisualStyleBackColor = true;
+            this.rbtServerSQLIntegratedSecurity.Click += new System.EventHandler(this.rbtSQLServer_Click);
             // 
             // rbtWindowsLocalIntegratedSecurity
             // 
@@ -168,7 +168,6 @@
             this.rbtWindowsLocalIntegratedSecurity.Name = "rbtWindowsLocalIntegratedSecurity";
             this.rbtWindowsLocalIntegratedSecurity.Size = new System.Drawing.Size(98, 17);
             this.rbtWindowsLocalIntegratedSecurity.TabIndex = 9;
-            this.rbtWindowsLocalIntegratedSecurity.TabStop = true;
             this.rbtWindowsLocalIntegratedSecurity.Text = "Windows Local";
             this.rbtWindowsLocalIntegratedSecurity.UseVisualStyleBackColor = true;
             this.rbtWindowsLocalIntegratedSecurity.Click += new System.EventHandler(this.rbtWindowsLocal_Click);
@@ -252,21 +251,20 @@
             this.lbDataSource.TabIndex = 0;
             this.lbDataSource.Text = "Server..:";
             // 
-            // frmModelA
+            // frmModel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(306, 234);
+            this.ClientSize = new System.Drawing.Size(298, 226);
             this.ControlBox = false;
             this.Controls.Add(this.grpModelA);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmModelA";
+            this.Name = "frmModel";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ModeloA";
+            this.Text = "%TITLE%";
             this.grpModelA.ResumeLayout(false);
             this.pnlModelServerLogin.ResumeLayout(false);
             this.pnlModelServerLogin.PerformLayout();
@@ -289,7 +287,7 @@
         private System.Windows.Forms.TextBox txtDataSource;
         private System.Windows.Forms.Button btnShowHide;
         private System.Windows.Forms.ComboBox cboConnectTimeout;
-        private System.Windows.Forms.RadioButton rbtSQLServerIntegratedSecurity;
+        private System.Windows.Forms.RadioButton rbtServerSQLIntegratedSecurity;
         private System.Windows.Forms.RadioButton rbtWindowsLocalIntegratedSecurity;
         private System.Windows.Forms.Label lblConnectTimeout;
         private System.Windows.Forms.Button btnOnOff;

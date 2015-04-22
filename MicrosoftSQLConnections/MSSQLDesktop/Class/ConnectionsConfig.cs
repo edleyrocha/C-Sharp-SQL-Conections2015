@@ -65,6 +65,8 @@
         #endregion
 
         #region ---> ( Constructor )
+
+
         /// <summary>
         /// #Constructor method(simple)
         /// </summary>
@@ -80,26 +82,56 @@
             this.persistSecurityInfo = (String.Empty);
         }
         /// <summary>
-        /// #Constructor method(string 8 )
+        /// #Constructor method(DB Windows Local)
         /// </summary>
-        public ConnectionsConfig(
-        string UserID,
-        string Password,
-        string DataSource,
-        string ConnectTimeout,
-        string InitialCatalog,
-        string ConnectionString,
-        string IntegratedSecurity,
-        string PersistSecurityInfo)
+        public ConnectionsConfig(string DataSource, string InitialCatalog, string IntegratedSecurity, string ConnectTimeout)
         {
-        this.userID = (UserID);
-        this.password = (Password);
-        this.dataSource = (DataSource);
-        this.connectTimeout = (ConnectTimeout);
-        this.initialCatalog = (InitialCatalog);
-        this.connectionString = (ConnectionString);
-        this.integratedSecurity = (IntegratedSecurity);
-        this.persistSecurityInfo = (PersistSecurityInfo);
+            this.dataSource = (DataSource);
+            this.initialCatalog = (InitialCatalog);
+            this.integratedSecurity = (IntegratedSecurity);
+            this.connectionString = (ConnectTimeout);
+            SetWindowsLocalForConnectionsSQL();
+        }
+        /// <summary>
+        /// #Constructor method(DB Server SQL)
+        /// </summary>
+        public ConnectionsConfig(string UserID, string Password, string DataSource, string InitialCatalog, string ConnectTimeout)
+        {
+            this.userID = (UserID);
+            this.password = (Password);
+            this.dataSource = (DataSource);
+            this.initialCatalog = (InitialCatalog);
+            this.connectionString = (ConnectTimeout);
+            SetServerSQLForConnectionsSQL();
+        }
+        /// <summary>
+        /// #Set For Windows Local 
+        /// </summary>
+        private void SetWindowsLocalForConnectionsSQL()
+        {
+            ConnectionsSQL.ClearConnectionSQLString();
+            ConnectionsSQL.StringBuilderSQL_DataSource = (this.DataSource);
+            ConnectionsSQL.StringBuilderSQL_InitialCatalog = (this.InitialCatalog);
+            ConnectionsSQL.StringBuilderSQL_IntegratedSecurity = (Convert.ToBoolean(this.IntegratedSecurity));
+            if (!(string.IsNullOrEmpty(this.ConnectionString)))
+            {
+                ConnectionsSQL.StringBuilderSQL_ConnectTimeout = (Convert.ToInt32(this.ConnectionString));
+            }
+        }
+        /// <summary>
+        /// /// #Set For Server SQL 
+        /// </summary>
+        private void SetServerSQLForConnectionsSQL()
+        {
+            ConnectionsSQL.ClearConnectionSQLString();
+            ConnectionsSQL.StringBuilderSQL_UserID = (this.UserID);
+            ConnectionsSQL.StringBuilderSQL_Password = (this.Password);
+            ConnectionsSQL.StringBuilderSQL_DataSource = (this.DataSource);
+            ConnectionsSQL.StringBuilderSQL_InitialCatalog = (this.InitialCatalog);
+          if (!(string.IsNullOrEmpty(this.ConnectionString)))
+          {
+              ConnectionsSQL.StringBuilderSQL_ConnectTimeout = (Convert.ToInt32(this.ConnectionString));
+          }
         }
         #endregion
     }

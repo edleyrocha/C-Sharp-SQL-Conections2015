@@ -10,23 +10,25 @@
     /// <summary>
     /// #Class ConnectionsSQL Simple
     /// </summary>
-    public class ConnectionsSQLModelA
+    class ConnectionsSQL
     {
         #region --->( Constructor )
         /// <summary>
         /// #Method Constructor ConnectionsSQL Simple
         /// </summary>
-        public ConnectionsSQLModelA()
+        public ConnectionsSQL()
         {
+
         }
-        #endregion ---> Metodo Contrutor
+
+        #endregion
 
         #region ---> ( SQL Connection )
         /// <summary>
         /// #ConnectionSQL Private
         /// </summary>
         private static SqlConnection connectionSQL = new SqlConnection();
-        #endregion ---> SQL Connection
+        #endregion
 
         #region ---> ( String Builder )
         /// <summary>
@@ -62,7 +64,7 @@
         /// </summary>
         public static int StringBuilderSQL_ConnectTimeout
         {
-            get { return stringBuilderSQL.ConnectTimeout; }
+            private get { return stringBuilderSQL.ConnectTimeout; }
             set { stringBuilderSQL.ConnectTimeout = value; }
         }
         /// <summary>
@@ -78,7 +80,7 @@
         /// </summary>
         public static string StringBuilderSQL_ConnectionString
         {
-            get { return stringBuilderSQL.ConnectionString; }
+            private get { return stringBuilderSQL.ConnectionString; }
             set { stringBuilderSQL.ConnectionString = value; }
         }
         /// <summary>
@@ -97,14 +99,15 @@
             private get { return stringBuilderSQL.PersistSecurityInfo; }
             set { stringBuilderSQL.PersistSecurityInfo = value; }
         }
-        #endregion ---> String Builder
+        #endregion
 
-        #region ---> ( Connection Returne )
+        #region ---> ( Connection and String Returne )
+
         /// <summary>
         /// #Choices ---> ConnectionClose = 0, ConnectionOpen = 1
         /// </summary>
         [DefaultValue(ConnectionClose)]
-        public enum choicesAction
+        public enum choiceActions
         {
             ConnectionClose = 0,
             ConnectionOpen = 1
@@ -112,26 +115,25 @@
         /// <summary>
         /// #SQL function Connection Return--> Tuple-> (SqlConnection, int) tuple.Item1 tuple.Item2
         /// </summary>
-        public static Tuple<SqlConnection, int> ReturnConnection(choicesAction ActionChosen)
+        public static Tuple<SqlConnection, int> ReturnConnectionSQL(choiceActions ActionChosen)
         {
             try
             {
                 switch (ActionChosen)
                 {
-                    case choicesAction.ConnectionOpen:
+                    case choiceActions.ConnectionOpen:
                         {
-                            MSSQLDesktop.ConnectionsSQLModelA.connectionSQL.ConnectionString = stringBuilderSQL.ConnectionString;
-                            MSSQLDesktop.ConnectionsSQLModelA.connectionSQL.Open();
-                            ActionChosen = MSSQLDesktop.ConnectionsSQLModelA.choicesAction.ConnectionOpen;
-                            connectionSQL.Close();
+                            ConnectionsSQL.connectionSQL.ConnectionString = (stringBuilderSQL.ConnectionString);
+                            ConnectionsSQL.connectionSQL.Open();
+                            ActionChosen = (choiceActions.ConnectionOpen);
                             MSSQLDesktop.Debugar.TypeDebugPrint("\t SQL Server Online...");
                             break;
                         }
-                    case choicesAction.ConnectionClose:
+                    case choiceActions.ConnectionClose:
                         {
-                            MSSQLDesktop.ConnectionsSQLModelA.connectionSQL.Close();
-                            MSSQLDesktop.ConnectionsSQLModelA.connectionSQL.Dispose();
-                            ActionChosen = MSSQLDesktop.ConnectionsSQLModelA.choicesAction.ConnectionClose;
+                            ConnectionsSQL.connectionSQL.Close();
+                            ConnectionsSQL.connectionSQL.Dispose();
+                            ActionChosen = (choiceActions.ConnectionClose);
                             MSSQLDesktop.Debugar.TypeDebugPrint("\t SQL Server Offline...");
                             break;
                         }
@@ -143,10 +145,28 @@
             }
             catch
             {
-                ActionChosen = choicesAction.ConnectionClose;
+                ActionChosen = (choiceActions.ConnectionClose);
                 MSSQLDesktop.Debugar.TypeDebugPrint("\t SQL Server " + "[ERRO]" + " Offline...");
             }
             return Tuple.Create(connectionSQL, (int)ActionChosen);
+        }
+        /// <summary>
+        /// #String SQL Return
+        /// </summary>
+        public static string ReturnConnectionSQLString()
+        {
+            return (StringBuilderSQL_ConnectionString);
+        }
+        /// <summary>
+        /// #Clear ALL StringBuilderSQL_ConnectionString
+        /// </summary>
+        public static void ClearConnectionSQLString()
+        {
+           (StringBuilderSQL_ConnectionString) = (String.Empty);
+        }
+        public static string StatusConnectionSQLString()
+        {
+            return (connectionSQL.State.ToString());
         }
         #endregion
     }

@@ -23,7 +23,7 @@
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 #if (DEBUG)
-            Application.Run(new frmModelA());
+            Application.Run(new frmModel());
 #endif
             #endregion
         }

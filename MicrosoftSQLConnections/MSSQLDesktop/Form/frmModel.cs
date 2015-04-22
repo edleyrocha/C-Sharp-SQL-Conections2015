@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Configuration;
     using System.Data;
     using System.Drawing;
     using System.IO;
@@ -18,23 +19,24 @@
 
     #endregion
 
-    #region ---> ( Class frmModelA )
+    #region ---> ( Class frmModel )
 
     /// <summary>
-    /// #Class frmModelA Form
+    /// #Class frmModel Form
     /// </summary>
-    public partial class frmModelA : Form
+    public partial class frmModel : Form
     {
         #region --->( Constructor )
 
         /// <summary>
-        /// #Constructor frmModelA
+        /// #Constructor frmModel
         /// </summary>
-        public frmModelA()
+        public frmModel()
         {
             InitializeComponent();
+            this.Text = (grpModelA.Text);
             execTaskForcboConnectTimeoutItens();
-            execTaskForAppConfCheck();
+            // execTaskForAppConfCheck();
             Debugar.Status();
         }
 
@@ -60,14 +62,14 @@
 
         #endregion
 
-        #region ---> btnSair Super Simples
-        private void btnSair_Click(object sender, EventArgs e)
+        #region ---> ( btnClose Super Simples )
+        private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        #endregion Botao Sair Super Simples
+        #endregion
 
-        #region ---> btnShowHide Simples
+        #region ---> ( btnShowHide Simples )
         private void btnShow_Click(object sender, EventArgs e)
         {
             ShowHidePassword();
@@ -90,7 +92,7 @@
 
         #endregion ---> btnShowHide Simples
 
-        #region ---> btnOnOff Complete
+        #region ---> ( btnOnOff Complete )
 
         private enum TimeOutOnOff
         {
@@ -125,7 +127,7 @@
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r btnOnOff ---> OFF");
                 cboConnectTimeout.Enabled = (!cboConnectTimeout.Enabled);
-                cboConnectTimeout.Text = Convert.ToString(cboConnectTimeout.Items[((15) - (1))].ToString());
+                cboConnectTimeout.Text = Convert.ToString(cboConnectTimeout.Items[((30) - (1))].ToString());
                 btnOnOff.Tag = Convert.ToChar((int)TimeOutOnOff.ON);
                 btnOnOff.Text = Convert.ToString((TimeOutOnOff)(Convert.ToInt32(btnOnOff.Tag)));
             }
@@ -137,7 +139,7 @@
 
         #endregion ---> btnLigaDesliga Completo
 
-        #region ---> Choice rbt WindowsLocal and SQLServer
+        #region ---> (Choice rbt WindowsLocal and SQLServer)
         /// <summary>
         /// Enables disables Components
         /// </summary>
@@ -145,7 +147,7 @@
         {
             txtUserID.Enabled = (!txtUserID.Enabled);
             txtPassword.Enabled = (!txtPassword.Enabled);
-            rbtSQLServerIntegratedSecurity.Enabled = (!rbtSQLServerIntegratedSecurity.Enabled);
+            rbtServerSQLIntegratedSecurity.Enabled = (!rbtServerSQLIntegratedSecurity.Enabled);
             rbtWindowsLocalIntegratedSecurity.Enabled = (!rbtWindowsLocalIntegratedSecurity.Enabled);
             MSSQLDesktop.Debugar.TypeDebugPrint("Status Login = " + Convert.ToString(txtUserID.Enabled));
         }
@@ -159,59 +161,65 @@
         }
         #endregion ---> Escolhas rbt WindowsLocal e SQLServer
 
-        #region ---> btnConectar ao Server
-        private void btnConectar_Click(object sender, EventArgs e)
+        #region ---> ( btnConnect on Server )
+        private void btnConnect_Click(object sender, EventArgs e)
         {
-            // Task tk = new Task(StartConnection);
-            // tk.Start();
-            //ValidateFieldsOnForm(ChoiceFieldValidate.ConnectionString);
+            StartConnectionBaseSQLServer();
+            if ( (ConnectionsSQL.StatusConnectionSQLString() ) == ("Open") )
+            {
+                ConnectionsSQL.ReturnConnectionSQL(ConnectionsSQL.choiceActions.ConnectionClose);
+            }
+            //MessageBox.Show(ConnectionsSQL.ReturnConnectionSQLString());
+            ConnectionsSQL.ReturnConnectionSQL(ConnectionsSQL.choiceActions.ConnectionOpen);
+            //MessageBox.Show(ConnectionsSQL.StatusConnectionSQLString());
         }
 
-        public void StartConnection()
-        {
-            ///Clean
-            ConnectionsSQLModelA.StringBuilderSQL_ConnectionString = (String.Empty);
+        //public void StartConnection()
+        //{
+        //    ///Clean
+        //    ConnectionsSQL.StringBuilderSQL_ConnectionString = (String.Empty);
 
-            MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_DataSource = (txtDataSource.Text.ToString());
-            MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_InitialCatalog = (txtInitialCatalog.Text.ToString());
+        //    MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_DataSource = (txtDataSource.Text.ToString());
+        //    MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_InitialCatalog = (txtInitialCatalog.Text.ToString());
 
-            /// Choice rbtSQLServer and rbtWindowsLocal
-            if (((rbtSQLServerIntegratedSecurity.Checked) == (true)) | ((rbtWindowsLocalIntegratedSecurity.Checked) == ((false))))
-            {
-                MSSQLDesktop.Debugar.TypeDebugPrint("\r \tLogin via SQL Server");
+        //    /// Choice rbtSQLServer and rbtWindowsLocal
+        //    if (((rbtServerSQLIntegratedSecurity.Checked) == (true)) | ((rbtWindowsLocalIntegratedSecurity.Checked) == ((false))))
+        //    {
+        //        MSSQLDesktop.Debugar.TypeDebugPrint("\r \tLogin via SQL Server");
 
-                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_UserID = (txtUserID.Text.ToString());
-                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_Password = (txtPassword.Text.ToString());
+        //        MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_UserID = (txtUserID.Text.ToString());
+        //        MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_Password = (txtPassword.Text.ToString());
 
-            }
-            else if (((rbtWindowsLocalIntegratedSecurity.Checked) == (true)) | ((rbtSQLServerIntegratedSecurity.Checked) == ((false))))
-            {
-                MSSQLDesktop.Debugar.TypeDebugPrint("\r \tLogin via Windows Local");
+        //    }
+        //    else if (((rbtWindowsLocalIntegratedSecurity.Checked) == (true)) | ((rbtServerSQLIntegratedSecurity.Checked) == ((false))))
+        //    {
+        //        MSSQLDesktop.Debugar.TypeDebugPrint("\r \tLogin via Windows Local");
 
-                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_UserID = (String.Empty);
-                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_Password = (String.Empty);
+        //        MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_UserID = (String.Empty);
+        //        MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_Password = (String.Empty);
 
-            }
+        //    }
 
-            MSSQLDesktop.Debugar.TypeDebugPrint("\r\t Valor TimeOut Current = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
-            if ((cboConnectTimeout.Enabled) == (true))
-            {
+        //    // MSSQLDesktop.Debugar.TypeDebugPrint("\r\t Valor TimeOut Current = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_ConnectTimeout)));
+        //    if ((cboConnectTimeout.Enabled) == (true))
+        //    {
 
-                MSSQLDesktop.Debugar.TypeDebugPrint("\t Print Value TimeOut...");
+        //        MSSQLDesktop.Debugar.TypeDebugPrint("\t Print Value TimeOut...");
 
-                MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout = (int.Parse(cboConnectTimeout.Text.ToString()));
+        //        MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_ConnectTimeout = (int.Parse(cboConnectTimeout.Text.ToString()));
 
-            }
-            else
-            {
-                MSSQLDesktop.Debugar.TypeDebugPrint("\t Default Value TimeOut...");
-            }
-            MSSQLDesktop.Debugar.TypeDebugPrint("\t\t Value TimeOut Final = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQLModelA.StringBuilderSQL_ConnectTimeout)));
+        //    }
+        //    else
+        //    {
+        //        MSSQLDesktop.Debugar.TypeDebugPrint("\t Default Value TimeOut...");
+        //    }
+        //    // MSSQLDesktop.Debugar.TypeDebugPrint("\t\t Value TimeOut Final = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_ConnectTimeout)));
 
-            var ReturnoConn = MSSQLDesktop.ConnectionsSQLModelA.ReturnConnection(MSSQLDesktop.ConnectionsSQLModelA.choicesAction.ConnectionOpen);
-            MessageBox.Show(Convert.ToString(ReturnoConn.Item1) + "   " + Convert.ToString(ReturnoConn.Item2));
+        //    var ReturnoConn = MSSQLDesktop.ConnectionsSQL.ReturnConnectionSQL(MSSQLDesktop.ConnectionsSQL.choiceActions.ConnectionOpen);
+        //    MessageBox.Show(Convert.ToString(ReturnoConn.Item1) + "   " + Convert.ToString(ReturnoConn.Item2));
 
-        }
+        //}
+
         #endregion
 
         #region ---> ( Validate )
@@ -222,9 +230,10 @@
             DataSource = (3),
             ConnectTimeout = (4),
             InitialCatalog = (5),
-            ConnectionString = (6),
+            //ConnectionString = (6),
             IntegratedSecurity = (7),
-            PersistSecurityInfo = (8)
+            //PersistSecurityInfo = (8),
+
         }
         private string ValidateFieldsOnForm(ChoiceFieldValidate choiceFieldValidate)
         {
@@ -240,6 +249,8 @@
                         else
                         {
                             MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - Login Is Null Or Empty");
+                            returnResult = (Convert.ToString(false));
+                            MessageBox.Show(returnResult, Convert.ToString(choiceFieldValidate));
                         }
                         break;
                     }
@@ -252,6 +263,8 @@
                         else
                         {
                             MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - Password Is Null Or Empty");
+                            returnResult = (Convert.ToString(false));
+                            MessageBox.Show(returnResult, Convert.ToString(choiceFieldValidate));
                         }
                         break;
                     }
@@ -264,6 +277,8 @@
                         else
                         {
                             MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - Server Is Null Or Empty");
+                            returnResult = (Convert.ToString(false));
+                            MessageBox.Show(returnResult, Convert.ToString(choiceFieldValidate));
                         }
                         break;
                     }
@@ -271,11 +286,12 @@
                     {
                         if (!(string.IsNullOrEmpty(cboConnectTimeout.Text.ToString())))
                         {
-                            returnResult = (cboConnectTimeout.Text.ToString());
+                            returnResult = (Convert.ToString(cboConnectTimeout.SelectedItem));
                         }
                         else
                         {
-                            MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - TimeOut Is Null Or Empty");
+                            returnResult = (String.Empty);
+                            MSSQLDesktop.Debugar.TypeDebugPrint("\r DEFAULT VALUE- TimeOut Is Null Or Empty");
                         }
                         break;
                     }
@@ -287,44 +303,65 @@
                         }
                         else
                         {
-                            MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - DataBase Is Null Or Empty");
+                            MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR - InitialCatalog Is Null Or Empty");
+                            returnResult = (Convert.ToString(false));
+                            MessageBox.Show(returnResult, Convert.ToString(choiceFieldValidate));
                         }
                         break;
                     }
-                case (ChoiceFieldValidate.ConnectionString):
-                    {
-                        ValidateFieldsOnForm(ChoiceFieldValidate.UserID);
-                        ValidateFieldsOnForm(ChoiceFieldValidate.Password);
-                        ValidateFieldsOnForm(ChoiceFieldValidate.DataSource);
-                        ValidateFieldsOnForm(ChoiceFieldValidate.ConnectTimeout);
-                        ValidateFieldsOnForm(ChoiceFieldValidate.InitialCatalog);
-                        ValidateFieldsOnForm(ChoiceFieldValidate.IntegratedSecurity);
-                        break;
-                    }
+                //case (ChoiceFieldValidate.ConnectionString):
+                //    {
+                //        break;
+                //    }
                 case (ChoiceFieldValidate.IntegratedSecurity):
                     {
-                        if (((rbtSQLServerIntegratedSecurity.Checked) == (true)) | ((rbtWindowsLocalIntegratedSecurity.Checked) == ((false))))
-                        {
-                            returnResult = (Convert.ToString(false));
-                        }
-                        if (((rbtWindowsLocalIntegratedSecurity.Checked) == (true)) | ((rbtSQLServerIntegratedSecurity.Checked) == ((false))))
-                        {
-                            returnResult = (Convert.ToString(true));
-                        }
+                        MSSQLDesktop.Debugar.TypeDebugPrint("\r When FALSE (default) - User ID and Password are specified in the connection");
+                        returnResult = (Convert.ToString(true));
                         break;
                     }
-                case (ChoiceFieldValidate.PersistSecurityInfo):
-                    {
-
-                        break;
-                    }
+                //case (ChoiceFieldValidate.PersistSecurityInfo):
+                //    {
+                //        MSSQLDesktop.Debugar.TypeDebugPrint("\r When FALSE (default) - Strongly recommended security-sensitive information");
+                //        returnResult = ((true).ToString());
+                //        break;
+                //    }
                 default:
                     {
+                        MSSQLDesktop.Debugar.TypeDebugPrint("\r CHOSE FIELD VALIDATE");
                         returnResult = "-0-";
                         break;
                     }
             }
             return returnResult;
+        }
+
+        public void StartConnectionBaseSQLServer()
+        {
+            if (rbtServerSQLIntegratedSecurity.Checked)
+            {
+                ConnectionsConfig connectionsConfig = new ConnectionsConfig(
+                ValidateFieldsOnForm(ChoiceFieldValidate.UserID),
+                ValidateFieldsOnForm(ChoiceFieldValidate.Password),
+                ValidateFieldsOnForm(ChoiceFieldValidate.DataSource),
+                ValidateFieldsOnForm(ChoiceFieldValidate.InitialCatalog),
+                ValidateFieldsOnForm(ChoiceFieldValidate.ConnectTimeout));
+            }
+            else if (rbtWindowsLocalIntegratedSecurity.Checked)
+            {
+                ConnectionsConfig connectionsConfig = new ConnectionsConfig(
+                ValidateFieldsOnForm(ChoiceFieldValidate.DataSource),
+                ValidateFieldsOnForm(ChoiceFieldValidate.InitialCatalog),
+                ValidateFieldsOnForm(ChoiceFieldValidate.IntegratedSecurity),
+                ValidateFieldsOnForm(ChoiceFieldValidate.ConnectTimeout));
+            }
+            else
+            {
+                MessageBox.Show(
+                (String.Format("{0} \n{1}",
+                rbtServerSQLIntegratedSecurity.Text,
+                rbtWindowsLocalIntegratedSecurity.Text)),
+                ("Select the login type"));
+            }
         }
         #endregion
     }
