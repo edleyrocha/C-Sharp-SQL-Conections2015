@@ -32,7 +32,7 @@ namespace MSSQLDesktop
         }
         #endregion
 
-        #region --->( List of Tasks )
+        #region ---> ( List of Tasks )
         /// <summary>
         /// #Task For App.Conf Check File Exist
         /// </summary>
@@ -55,15 +55,31 @@ namespace MSSQLDesktop
             MSSQLDesktop.Debugar.TypeDebugPrint("\r Task for Check App.conf = Started");
             taskCheckAppConf.Start();
         }
+        #endregion
 
+        #region ---> ( Set AppConfig )
         /// <summary>
-        /// Save String for stringConnectionsSQLModelA
+        /// #Save String for stringSQLModel
         /// </summary>
         /// <param name="KeyValue"></param>
-        public void EditAppConfigFileConnectionsString(string KeyValue)
+        public void SetAppConfigFileConnectionsString(string key, string value)
         {
-            //Properties.Settings.Default.stringConnectionsSQLModelA = (KeyValue);
-            //Properties.Settings.Default.Save();
+            Properties.Settings.Default[key] = value;
+            Properties.Settings.Default.Save();
+            MSSQLDesktop.Debugar.TypeDebugPrint("\r Config String Saved (stringSQLModel) ");
+        }
+        #endregion
+
+        #region ---> ( Get AppConfig )
+        /// <summary>
+        /// #Read  String for stringSQLModel
+        /// #Read On "C:\Users\%UserName%\AppData\Local\"
+        /// </summary>
+        public string GetAppConfigFileConnectionsString(string key)
+        {
+            String returnResult;
+            returnResult = (Properties.Settings.Default[key].ToString());
+            return returnResult;
         }
         #endregion
 

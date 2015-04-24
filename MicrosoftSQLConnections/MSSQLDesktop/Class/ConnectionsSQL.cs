@@ -115,7 +115,7 @@
         /// <summary>
         /// #SQL function Connection Return--> Tuple-> (SqlConnection, int) tuple.Item1 tuple.Item2
         /// </summary>
-        public static Tuple<SqlConnection, int> ReturnConnectionSQL(choiceActions ActionChosen)
+        public static Tuple<SqlConnection, int> GetReturnConnectionSQL(choiceActions ActionChosen)
         {
             try
             {
@@ -153,21 +153,34 @@
         /// <summary>
         /// #String SQL Return
         /// </summary>
-        public static string ReturnConnectionSQLString()
+        public static string GetConnectionSQLString()
         {
             return (StringBuilderSQL_ConnectionString);
         }
         /// <summary>
         /// #Clear ALL StringBuilderSQL_ConnectionString
         /// </summary>
-        public static void ClearConnectionSQLString()
+        public static void SetClearConnectionSQLString()
         {
-           (StringBuilderSQL_ConnectionString) = (String.Empty);
+            (StringBuilderSQL_ConnectionString) = (String.Empty);
         }
-        public static string StatusConnectionSQLString()
+        /// <summary>
+        /// #Status Connection SQL
+        /// </summary>
+        /// <returns></returns>
+        public static string GetStatusConnectionSQLString()
         {
             return (connectionSQL.State.ToString());
         }
+        /// <summary>
+        /// #Set String on StringBuild From AppConfig
+        /// </summary>
+        public static void SetConnectionSQLAppConfig(string stringBuilderSQL)
+        {
+            SetClearConnectionSQLString();
+            StringBuilderSQL_ConnectionString = (stringBuilderSQL);
+        }
+
         #endregion
     }
     #endregion

@@ -109,7 +109,7 @@
         /// </summary>
         private void SetWindowsLocalForConnectionsSQL()
         {
-            ConnectionsSQL.ClearConnectionSQLString();
+            ConnectionsSQL.SetClearConnectionSQLString();
             ConnectionsSQL.StringBuilderSQL_DataSource = (this.DataSource);
             ConnectionsSQL.StringBuilderSQL_InitialCatalog = (this.InitialCatalog);
             ConnectionsSQL.StringBuilderSQL_IntegratedSecurity = (Convert.ToBoolean(this.IntegratedSecurity));
@@ -123,7 +123,7 @@
         /// </summary>
         private void SetServerSQLForConnectionsSQL()
         {
-            ConnectionsSQL.ClearConnectionSQLString();
+            ConnectionsSQL.SetClearConnectionSQLString();
             ConnectionsSQL.StringBuilderSQL_UserID = (this.UserID);
             ConnectionsSQL.StringBuilderSQL_Password = (this.Password);
             ConnectionsSQL.StringBuilderSQL_DataSource = (this.DataSource);

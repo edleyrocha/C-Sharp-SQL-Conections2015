@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             this.grpModelA = new System.Windows.Forms.GroupBox();
-            this.pnlModelServerLogin = new System.Windows.Forms.Panel();
+            this.pnlModelStings = new System.Windows.Forms.Panel();
+            this.btnReadAndTest = new System.Windows.Forms.Button();
+            this.lblStrings = new System.Windows.Forms.Label();
+            this.pnlModel = new System.Windows.Forms.Panel();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.pnlBtnShowHideAndBtnOnOff = new System.Windows.Forms.Panel();
@@ -48,42 +51,74 @@
             this.lblInitialCatalog = new System.Windows.Forms.Label();
             this.lbDataSource = new System.Windows.Forms.Label();
             this.grpModelA.SuspendLayout();
-            this.pnlModelServerLogin.SuspendLayout();
+            this.pnlModelStings.SuspendLayout();
+            this.pnlModel.SuspendLayout();
             this.pnlBtnShowHideAndBtnOnOff.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpModelA
             // 
-            this.grpModelA.Controls.Add(this.pnlModelServerLogin);
+            this.grpModelA.Controls.Add(this.pnlModelStings);
+            this.grpModelA.Controls.Add(this.pnlModel);
             this.grpModelA.Location = new System.Drawing.Point(12, 12);
             this.grpModelA.Name = "grpModelA";
-            this.grpModelA.Size = new System.Drawing.Size(284, 213);
+            this.grpModelA.Size = new System.Drawing.Size(284, 320);
             this.grpModelA.TabIndex = 0;
             this.grpModelA.TabStop = false;
             this.grpModelA.Text = "SQL Connection";
             // 
-            // pnlModelServerLogin
+            // pnlModelStings
             // 
-            this.pnlModelServerLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlModelServerLogin.Controls.Add(this.btnConnect);
-            this.pnlModelServerLogin.Controls.Add(this.btnClose);
-            this.pnlModelServerLogin.Controls.Add(this.pnlBtnShowHideAndBtnOnOff);
-            this.pnlModelServerLogin.Controls.Add(this.cboConnectTimeout);
-            this.pnlModelServerLogin.Controls.Add(this.rbtServerSQLIntegratedSecurity);
-            this.pnlModelServerLogin.Controls.Add(this.rbtWindowsLocalIntegratedSecurity);
-            this.pnlModelServerLogin.Controls.Add(this.txtPassword);
-            this.pnlModelServerLogin.Controls.Add(this.txtUserID);
-            this.pnlModelServerLogin.Controls.Add(this.txtInitialCatalog);
-            this.pnlModelServerLogin.Controls.Add(this.txtDataSource);
-            this.pnlModelServerLogin.Controls.Add(this.lblConnectTimeout);
-            this.pnlModelServerLogin.Controls.Add(this.lblPassword);
-            this.pnlModelServerLogin.Controls.Add(this.lblUserID);
-            this.pnlModelServerLogin.Controls.Add(this.lblInitialCatalog);
-            this.pnlModelServerLogin.Controls.Add(this.lbDataSource);
-            this.pnlModelServerLogin.Location = new System.Drawing.Point(6, 19);
-            this.pnlModelServerLogin.Name = "pnlModelServerLogin";
-            this.pnlModelServerLogin.Size = new System.Drawing.Size(272, 187);
-            this.pnlModelServerLogin.TabIndex = 0;
+            this.pnlModelStings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlModelStings.Controls.Add(this.btnReadAndTest);
+            this.pnlModelStings.Controls.Add(this.lblStrings);
+            this.pnlModelStings.Location = new System.Drawing.Point(6, 212);
+            this.pnlModelStings.Name = "pnlModelStings";
+            this.pnlModelStings.Size = new System.Drawing.Size(272, 100);
+            this.pnlModelStings.TabIndex = 2;
+            // 
+            // btnReadAndTest
+            // 
+            this.btnReadAndTest.Location = new System.Drawing.Point(188, 72);
+            this.btnReadAndTest.Name = "btnReadAndTest";
+            this.btnReadAndTest.Size = new System.Drawing.Size(75, 23);
+            this.btnReadAndTest.TabIndex = 2;
+            this.btnReadAndTest.Text = "Read";
+            this.btnReadAndTest.UseVisualStyleBackColor = true;
+            this.btnReadAndTest.Click += new System.EventHandler(this.btnReadAndTest_Click);
+            // 
+            // lblStrings
+            // 
+            this.lblStrings.AutoSize = true;
+            this.lblStrings.Location = new System.Drawing.Point(5, 5);
+            this.lblStrings.MaximumSize = new System.Drawing.Size(250, 0);
+            this.lblStrings.Name = "lblStrings";
+            this.lblStrings.Size = new System.Drawing.Size(97, 13);
+            this.lblStrings.TabIndex = 1;
+            this.lblStrings.Text = "%DataBaseString%";
+            // 
+            // pnlModel
+            // 
+            this.pnlModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlModel.Controls.Add(this.btnConnect);
+            this.pnlModel.Controls.Add(this.btnClose);
+            this.pnlModel.Controls.Add(this.pnlBtnShowHideAndBtnOnOff);
+            this.pnlModel.Controls.Add(this.cboConnectTimeout);
+            this.pnlModel.Controls.Add(this.rbtServerSQLIntegratedSecurity);
+            this.pnlModel.Controls.Add(this.rbtWindowsLocalIntegratedSecurity);
+            this.pnlModel.Controls.Add(this.txtPassword);
+            this.pnlModel.Controls.Add(this.txtUserID);
+            this.pnlModel.Controls.Add(this.txtInitialCatalog);
+            this.pnlModel.Controls.Add(this.txtDataSource);
+            this.pnlModel.Controls.Add(this.lblConnectTimeout);
+            this.pnlModel.Controls.Add(this.lblPassword);
+            this.pnlModel.Controls.Add(this.lblUserID);
+            this.pnlModel.Controls.Add(this.lblInitialCatalog);
+            this.pnlModel.Controls.Add(this.lbDataSource);
+            this.pnlModel.Location = new System.Drawing.Point(6, 19);
+            this.pnlModel.Name = "pnlModel";
+            this.pnlModel.Size = new System.Drawing.Size(272, 187);
+            this.pnlModel.TabIndex = 0;
             // 
             // btnConnect
             // 
@@ -255,7 +290,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 226);
+            this.ClientSize = new System.Drawing.Size(295, 329);
             this.ControlBox = false;
             this.Controls.Add(this.grpModelA);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -266,8 +301,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "%TITLE%";
             this.grpModelA.ResumeLayout(false);
-            this.pnlModelServerLogin.ResumeLayout(false);
-            this.pnlModelServerLogin.PerformLayout();
+            this.pnlModelStings.ResumeLayout(false);
+            this.pnlModelStings.PerformLayout();
+            this.pnlModel.ResumeLayout(false);
+            this.pnlModel.PerformLayout();
             this.pnlBtnShowHideAndBtnOnOff.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -276,7 +313,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox grpModelA;
-        private System.Windows.Forms.Panel pnlModelServerLogin;
+        private System.Windows.Forms.Panel pnlModel;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblUserID;
         private System.Windows.Forms.Label lblInitialCatalog;
@@ -292,8 +329,11 @@
         private System.Windows.Forms.Label lblConnectTimeout;
         private System.Windows.Forms.Button btnOnOff;
         private System.Windows.Forms.Panel pnlBtnShowHideAndBtnOnOff;
-        private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button btnClose;
+        public System.Windows.Forms.Button btnConnect;
+        private System.Windows.Forms.Label lblStrings;
+        private System.Windows.Forms.Panel pnlModelStings;
+        private System.Windows.Forms.Button btnReadAndTest;
 
     }
 }

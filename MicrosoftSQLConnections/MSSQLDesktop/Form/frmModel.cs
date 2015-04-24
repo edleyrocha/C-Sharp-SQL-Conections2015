@@ -35,8 +35,8 @@
         {
             InitializeComponent();
             this.Text = (grpModelA.Text);
+            this.lblStrings.Text = (this.Text);
             execTaskForcboConnectTimeoutItens();
-            // execTaskForAppConfCheck();
             Debugar.Status();
         }
 
@@ -59,17 +59,85 @@
             AppConfigXML appConfigXML = new AppConfigXML();
             appConfigXML.TaskForAppConfCheckFileExist();
         }
+        /// <summary>
+        /// Task For For Connections SQL
+        /// </summary>
+        private void execTaskForConnectionsSQL(SelectOnOff selected)
+        {
+            Thread threadConnectionsSQL = new Thread(() =>
+                {
+                    if ((ConnectionsSQL.GetStatusConnectionSQLString()) == ("Open"))
+                    {
+                        ConnectionsSQL.GetReturnConnectionSQL(ConnectionsSQL.choiceActions.ConnectionClose);
+                    };
+                    if ((ConnectionsSQL.GetReturnConnectionSQL(ConnectionsSQL.choiceActions.ConnectionOpen).Item2) ==
+                       ((int)(ConnectionsSQL.choiceActions.ConnectionOpen)))
+                    {
+                        String msgText = ("Save a Connection?");
+                        String msgTitle = ("Connected");
+                        MessageBoxButtons msgButton = (MessageBoxButtons.YesNo);
+                        MessageBoxIcon msgIcon = (MessageBoxIcon.Question);
+                        DialogResult msgResult;
+                        if ((selected) == (SelectOnOff.ON))
+                        {
+                            msgResult = MessageBox.Show(msgText, msgTitle, msgButton, msgIcon);
+                            if (msgResult == (DialogResult.Yes))
+                            {
+                                AppConfigXML appConfigXML = new AppConfigXML();
+                                appConfigXML.SetAppConfigFileConnectionsString("stringSQLModel", ConnectionsSQL.GetConnectionSQLString());
+                            }
+                        }
+                        else if ((selected) == (SelectOnOff.OFF))
+                        {
+                            msgText = ("Connection is [OK]");
+                            msgButton = (MessageBoxButtons.OK);
+                            msgIcon = (MessageBoxIcon.Information);
+                            MessageBox.Show(msgText, msgTitle, msgButton, msgIcon);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error Disconnected");
+                    };
+                });
+            threadConnectionsSQL.Start();
+        }
 
         #endregion
 
-        #region ---> ( btnClose Super Simples )
+        #region ---> ( btnReadAndTest )
+        private void btnReadAndTest_Click(object sender, EventArgs e)
+        {
+            GetAppConfigFileConnectionsString();
+        }
+        public void GetAppConfigFileConnectionsString()
+        {
+            String stringDB;
+            AppConfigXML appConfigXML = new AppConfigXML();
+            stringDB = appConfigXML.GetAppConfigFileConnectionsString("stringSQLModel");
+            if (btnReadAndTest.Text == ("Read"))
+            {
+                lblStrings.Text = (stringDB);
+                MSSQLDesktop.Debugar.TypeDebugPrint("\r Get Settings Saved (stringSQLModel) ");
+                btnReadAndTest.Text = ("Test");
+            }
+            else if (btnReadAndTest.Text == ("Test"))
+            {
+                ConnectionsSQL.SetConnectionSQLAppConfig(stringDB);
+                execTaskForConnectionsSQL(SelectOnOff.OFF);
+                btnReadAndTest.Text = ("Read");
+            };
+        }
+        #endregion
+
+        #region ---> ( btnClose Super simple )
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
         #endregion
 
-        #region ---> ( btnShowHide Simples )
+        #region ---> ( btnShowHide Simple )
         private void btnShow_Click(object sender, EventArgs e)
         {
             ShowHidePassword();
@@ -94,7 +162,7 @@
 
         #region ---> ( btnOnOff Complete )
 
-        private enum TimeOutOnOff
+        private enum SelectOnOff
         {
             ON = 1,
             OFF = 0
@@ -115,21 +183,21 @@
             {
                 cboConnectTimeout.Items.AddRange(itensRageForcboConnectTimeout);
             }
-            if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)TimeOutOnOff.ON))
+            if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)SelectOnOff.ON))
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r btnOnOff ---> ON");
                 cboConnectTimeout.Enabled = (!cboConnectTimeout.Enabled);
                 cboConnectTimeout.Text = (string.Empty);
-                btnOnOff.Tag = Convert.ToChar((int)TimeOutOnOff.OFF);
-                btnOnOff.Text = Convert.ToString((TimeOutOnOff)(Convert.ToInt32(btnOnOff.Tag)));
+                btnOnOff.Tag = Convert.ToChar((int)SelectOnOff.OFF);
+                btnOnOff.Text = Convert.ToString((SelectOnOff)(Convert.ToInt32(btnOnOff.Tag)));
             }
-            else if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)TimeOutOnOff.OFF))
+            else if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)SelectOnOff.OFF))
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r btnOnOff ---> OFF");
                 cboConnectTimeout.Enabled = (!cboConnectTimeout.Enabled);
                 cboConnectTimeout.Text = Convert.ToString(cboConnectTimeout.Items[((30) - (1))].ToString());
-                btnOnOff.Tag = Convert.ToChar((int)TimeOutOnOff.ON);
-                btnOnOff.Text = Convert.ToString((TimeOutOnOff)(Convert.ToInt32(btnOnOff.Tag)));
+                btnOnOff.Tag = Convert.ToChar((int)SelectOnOff.ON);
+                btnOnOff.Text = Convert.ToString((SelectOnOff)(Convert.ToInt32(btnOnOff.Tag)));
             }
         }
         private void btnOnOff_Click(object sender, EventArgs e)
@@ -165,61 +233,8 @@
         private void btnConnect_Click(object sender, EventArgs e)
         {
             StartConnectionBaseSQLServer();
-            if ( (ConnectionsSQL.StatusConnectionSQLString() ) == ("Open") )
-            {
-                ConnectionsSQL.ReturnConnectionSQL(ConnectionsSQL.choiceActions.ConnectionClose);
-            }
-            //MessageBox.Show(ConnectionsSQL.ReturnConnectionSQLString());
-            ConnectionsSQL.ReturnConnectionSQL(ConnectionsSQL.choiceActions.ConnectionOpen);
-            //MessageBox.Show(ConnectionsSQL.StatusConnectionSQLString());
+            execTaskForConnectionsSQL(SelectOnOff.ON);
         }
-
-        //public void StartConnection()
-        //{
-        //    ///Clean
-        //    ConnectionsSQL.StringBuilderSQL_ConnectionString = (String.Empty);
-
-        //    MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_DataSource = (txtDataSource.Text.ToString());
-        //    MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_InitialCatalog = (txtInitialCatalog.Text.ToString());
-
-        //    /// Choice rbtSQLServer and rbtWindowsLocal
-        //    if (((rbtServerSQLIntegratedSecurity.Checked) == (true)) | ((rbtWindowsLocalIntegratedSecurity.Checked) == ((false))))
-        //    {
-        //        MSSQLDesktop.Debugar.TypeDebugPrint("\r \tLogin via SQL Server");
-
-        //        MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_UserID = (txtUserID.Text.ToString());
-        //        MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_Password = (txtPassword.Text.ToString());
-
-        //    }
-        //    else if (((rbtWindowsLocalIntegratedSecurity.Checked) == (true)) | ((rbtServerSQLIntegratedSecurity.Checked) == ((false))))
-        //    {
-        //        MSSQLDesktop.Debugar.TypeDebugPrint("\r \tLogin via Windows Local");
-
-        //        MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_UserID = (String.Empty);
-        //        MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_Password = (String.Empty);
-
-        //    }
-
-        //    // MSSQLDesktop.Debugar.TypeDebugPrint("\r\t Valor TimeOut Current = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_ConnectTimeout)));
-        //    if ((cboConnectTimeout.Enabled) == (true))
-        //    {
-
-        //        MSSQLDesktop.Debugar.TypeDebugPrint("\t Print Value TimeOut...");
-
-        //        MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_ConnectTimeout = (int.Parse(cboConnectTimeout.Text.ToString()));
-
-        //    }
-        //    else
-        //    {
-        //        MSSQLDesktop.Debugar.TypeDebugPrint("\t Default Value TimeOut...");
-        //    }
-        //    // MSSQLDesktop.Debugar.TypeDebugPrint("\t\t Value TimeOut Final = " + (Convert.ToString(MSSQLDesktop.ConnectionsSQL.StringBuilderSQL_ConnectTimeout)));
-
-        //    var ReturnoConn = MSSQLDesktop.ConnectionsSQL.ReturnConnectionSQL(MSSQLDesktop.ConnectionsSQL.choiceActions.ConnectionOpen);
-        //    MessageBox.Show(Convert.ToString(ReturnoConn.Item1) + "   " + Convert.ToString(ReturnoConn.Item2));
-
-        //}
-
         #endregion
 
         #region ---> ( Validate )
@@ -334,7 +349,6 @@
             }
             return returnResult;
         }
-
         public void StartConnectionBaseSQLServer()
         {
             if (rbtServerSQLIntegratedSecurity.Checked)
@@ -364,6 +378,7 @@
             }
         }
         #endregion
+
     }
     #endregion
 }
