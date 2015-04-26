@@ -35,7 +35,6 @@
         {
             InitializeComponent();
             this.Text = (grpModelA.Text);
-            this.lblStrings.Text = (this.Text);
             execTaskForcboConnectTimeoutItens();
             Debugar.Status();
         }
@@ -50,14 +49,6 @@
         {
             Thread taskCreateNumberList = new Thread(CreateNumberListStrings);
             taskCreateNumberList.Start();
-        }
-        /// <summary>
-        /// #Task For App.Conf Check File Exist
-        /// </summary>
-        private void execTaskForAppConfCheck()
-        {
-            AppConfigXML appConfigXML = new AppConfigXML();
-            appConfigXML.TaskForAppConfCheckFileExist();
         }
         /// <summary>
         /// Task For For Connections SQL
@@ -115,7 +106,8 @@
             String stringDB;
             AppConfigXML appConfigXML = new AppConfigXML();
             stringDB = appConfigXML.GetAppConfigFileConnectionsString("stringSQLModel");
-            if (btnReadAndTest.Text == ("Read"))
+            
+            if ( (!String.IsNullOrEmpty(stringDB) ) && (btnReadAndTest.Text == ("Read") ) )
             {
                 lblStrings.Text = (stringDB);
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r Get Settings Saved (stringSQLModel) ");
@@ -123,9 +115,9 @@
             }
             else if (btnReadAndTest.Text == ("Test"))
             {
-                ConnectionsSQL.SetConnectionSQLAppConfig(stringDB);
-                execTaskForConnectionsSQL(SelectOnOff.OFF);
-                btnReadAndTest.Text = ("Read");
+                    ConnectionsSQL.SetConnectionSQLAppConfig(stringDB);
+                    execTaskForConnectionsSQL(SelectOnOff.OFF);
+                    btnReadAndTest.Text = ("Read");
             };
         }
         #endregion
@@ -227,7 +219,7 @@
         {
             EnableDisableLoginAndPassword();
         }
-        #endregion ---> Escolhas rbt WindowsLocal e SQLServer
+        #endregion
 
         #region ---> ( btnConnect on Server )
         private void btnConnect_Click(object sender, EventArgs e)
@@ -378,7 +370,6 @@
             }
         }
         #endregion
-
     }
     #endregion
 }

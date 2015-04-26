@@ -93,9 +93,9 @@
             this.lblStrings.Location = new System.Drawing.Point(5, 5);
             this.lblStrings.MaximumSize = new System.Drawing.Size(250, 0);
             this.lblStrings.Name = "lblStrings";
-            this.lblStrings.Size = new System.Drawing.Size(97, 13);
+            this.lblStrings.Size = new System.Drawing.Size(111, 13);
             this.lblStrings.TabIndex = 1;
-            this.lblStrings.Text = "%DataBaseString%";
+            this.lblStrings.Text = "Data Base SQL String";
             // 
             // pnlModel
             // 
@@ -290,7 +290,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 329);
+            this.ClientSize = new System.Drawing.Size(291, 325);
             this.ControlBox = false;
             this.Controls.Add(this.grpModelA);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

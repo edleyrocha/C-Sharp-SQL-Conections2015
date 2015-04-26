@@ -25,7 +25,7 @@ namespace MSSQLDesktop.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("stringSQLModel")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string stringSQLModel {
             get {
                 return ((string)(this["stringSQLModel"]));
@@ -38,7 +38,6 @@ namespace MSSQLDesktop.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("stringConnSQLModel")]
         public string stringConnSQLModel {
             get {
                 return ((string)(this["stringConnSQLModel"]));
