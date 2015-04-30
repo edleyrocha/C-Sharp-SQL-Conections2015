@@ -2,7 +2,9 @@
 {
     #region ---> ( Using )
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Data;
     using System.Data.SqlClient;
     #endregion
 
@@ -101,7 +103,7 @@
         }
         #endregion
 
-        #region ---> ( Connection and String Returne )
+        #region ---> ( Connection And String Returne )
 
         /// <summary>
         /// #Choices ---> ConnectionClose = 0, ConnectionOpen = 1
@@ -150,19 +152,61 @@
             }
             return Tuple.Create(connectionSQL, (int)ActionChosen);
         }
+        #endregion
+
+        #region ---> ( Connection Show InitialCatalog)
+        public enum choiceLocal
+        {
+            Remote = 0,
+            Local = 1
+        }
+        public static List<string> GetDataBaseInitialCatalog(choiceLocal localSelect)
+        {
+            MSSQLDesktop.Debugar.TypeDebugPrint("\r Start GetDataBaseInitialCatalog");
+            List<string> returnInitialCatalog = new List<string>();
+            ConnectionsSQL.connectionSQL.Close();
+            try
+            {
+                connectionSQL.ConnectionString = (stringBuilderSQL.ConnectionString);
+                MSSQLDesktop.Debugar.TypeDebugPrint("\r Conected A \n");
+                connectionSQL.Open();
+                MSSQLDesktop.Debugar.TypeDebugPrint("\r Conected B \n");
+                string query = ("SELECT (name) FROM sys.databases;");
+                SqlCommand cmd = new SqlCommand(query, connectionSQL);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                foreach (DataRow row in dt.Rows)
+                {
+                    foreach (var item in row.ItemArray)
+                    {
+                        returnInitialCatalog.Add(item.ToString());
+                    };
+                };
+            }
+            catch (Exception e)
+            {
+                MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR GetDataBaseInitialCatalog\n" + (e.ToString()));
+            }
+
+
+            //returnInitialCatalog.Add("1");
+            //returnInitialCatalog.Add("2");
+            //returnInitialCatalog.Add("3");
+            //returnInitialCatalog.Add("4");
+            connectionSQL.Close();
+            MSSQLDesktop.Debugar.TypeDebugPrint("\r End GetDataBaseInitialCatalog");
+            return returnInitialCatalog;
+        }
+        #endregion
+
+        #region ---> ( Get and Set Other )
         /// <summary>
         /// #String SQL Return
         /// </summary>
         public static string GetConnectionSQLString()
         {
             return (StringBuilderSQL_ConnectionString);
-        }
-        /// <summary>
-        /// #Clear ALL StringBuilderSQL_ConnectionString
-        /// </summary>
-        public static void SetClearConnectionSQLString()
-        {
-            (StringBuilderSQL_ConnectionString) = (String.Empty);
         }
         /// <summary>
         /// #Status Connection SQL
@@ -180,7 +224,13 @@
             SetClearConnectionSQLString();
             StringBuilderSQL_ConnectionString = (stringBuilderSQL);
         }
-
+        /// <summary>
+        /// #Clear ALL StringBuilderSQL_ConnectionString
+        /// </summary>
+        public static void SetClearConnectionSQLString()
+        {
+            (StringBuilderSQL_ConnectionString) = (String.Empty);
+        }
         #endregion
     }
     #endregion

@@ -3,6 +3,7 @@
     #region ---> ( Using )
 
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Configuration;
@@ -106,18 +107,19 @@
             String stringDB;
             AppConfigXML appConfigXML = new AppConfigXML();
             stringDB = appConfigXML.GetAppConfigFileConnectionsString("stringSQLModel");
-            
-            if ( (!String.IsNullOrEmpty(stringDB) ) && (btnReadAndTest.Text == ("Read") ) )
+
+            if ((!String.IsNullOrEmpty(stringDB)) && (btnReadAndTest.Text == ("Read")))
             {
-                lblStrings.Text = (stringDB);
+
+                rtbStrings.Text = (stringDB);
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r Get Settings Saved (stringSQLModel) ");
                 btnReadAndTest.Text = ("Test");
             }
             else if (btnReadAndTest.Text == ("Test"))
             {
-                    ConnectionsSQL.SetConnectionSQLAppConfig(stringDB);
-                    execTaskForConnectionsSQL(SelectOnOff.OFF);
-                    btnReadAndTest.Text = ("Read");
+                ConnectionsSQL.SetConnectionSQLAppConfig(stringDB);
+                execTaskForConnectionsSQL(SelectOnOff.OFF);
+                btnReadAndTest.Text = ("Read");
             };
         }
         #endregion
@@ -160,7 +162,7 @@
             OFF = 0
         }
 
-        private string[] itensRageForcboConnectTimeout = new string[999];
+        private string[] itensRageForcboConnectTimeout = new string[1000];
         private void CreateNumberListStrings()
         {
             for (int numberList = 0; numberList < itensRageForcboConnectTimeout.Length; numberList++)
@@ -205,10 +207,16 @@
         /// </summary>
         private void EnableDisableLoginAndPassword()
         {
-            txtUserID.Enabled = (!txtUserID.Enabled);
-            txtPassword.Enabled = (!txtPassword.Enabled);
-            rbtServerSQLIntegratedSecurity.Enabled = (!rbtServerSQLIntegratedSecurity.Enabled);
-            rbtWindowsLocalIntegratedSecurity.Enabled = (!rbtWindowsLocalIntegratedSecurity.Enabled);
+            if (rbtServerSQLIntegratedSecurity.Checked)
+            {
+                txtUserID.Enabled = (true);
+                txtPassword.Enabled = (true);
+            }
+            else if (rbtWindowsLocalIntegratedSecurity.Checked)
+            {
+                txtUserID.Enabled = (false);
+                txtPassword.Enabled = (false);
+            };
             MSSQLDesktop.Debugar.TypeDebugPrint("Status Login = " + Convert.ToString(txtUserID.Enabled));
         }
         private void rbtWindowsLocal_Click(object sender, EventArgs e)
@@ -304,9 +312,9 @@
                     }
                 case (ChoiceFieldValidate.InitialCatalog):
                     {
-                        if (!(string.IsNullOrEmpty(txtInitialCatalog.Text.ToString())))
+                        if (!(string.IsNullOrEmpty(cboInitialCatalog.Text.ToString())))
                         {
-                            returnResult = (txtInitialCatalog.Text.ToString());
+                            returnResult = (cboInitialCatalog.Text.ToString());
                         }
                         else
                         {
@@ -370,6 +378,172 @@
             }
         }
         #endregion
+
+        #region ---> ( Comp ReadyOnly )
+        private void cboConnectTimeout_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = (char)Keys.None; //ReadOnly ComboBox
+        }
+
+        private void cboInitialCatalog_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = (char)Keys.None; //ReadOnly ComboBox
+        }
+
+        private void rtbStrings_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = (char)Keys.None; //ReadOnly ComboBox
+        }
+        #endregion
+        private BackgroundWorker bw = new BackgroundWorker();
+        private void backgroudShowProgessBar()
+        {
+            bw.WorkerReportsProgress = true;
+            bw.WorkerSupportsCancellation = true;
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+            bw.RunWorkerAsync();
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+          
+
+               
+
+            for (int i = 1; (i <= 999); i++)
+            {
+                if ((worker.CancellationPending == true))
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    // Perform a time consuming operation and report progress.
+                    System.Threading.Thread.Sleep(500);
+                   worker.ReportProgress((i * 1));
+                }
+            }
+        }
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if ((e.Cancelled == true))
+            {
+            }
+            else if (!(e.Error == null))
+            {
+
+            }
+            else
+            {
+            };
+        }
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+        }
+        private void ShowListDataBase()
+        {
+            if (rbtServerSQLIntegratedSecurity.Checked)
+            {
+                String tgsource = cboInitialCatalog.Tag.ToString();
+                String dSource = txtDataSource.Text;
+                String uSource = txtUserID.Text;
+                String pSource = txtPassword.Text;
+                if (!String.IsNullOrEmpty(dSource) && !String.IsNullOrEmpty(uSource) && !String.IsNullOrEmpty(pSource))
+                {
+                    if ((tgsource) != (dSource))
+                    {
+                        cboInitialCatalog.Tag = (dSource);
+                        String[] stringDatas = new String[5];
+                        stringDatas[0] = (uSource);
+                        stringDatas[1] = (pSource);
+                        stringDatas[2] = (dSource);
+                        stringDatas[3] = ("master");
+                        stringDatas[4] = ("1");
+                        ConnectionsConfig cnConfig = new ConnectionsConfig(
+                        stringDatas[0],
+                        stringDatas[1],
+                        stringDatas[2],
+                        stringDatas[3],
+                        stringDatas[4]);
+                        List<string> initialCatalog = new List<string>();
+                        initialCatalog.Clear();
+                        this.Cursor = Cursors.WaitCursor;
+                        initialCatalog = ConnectionsSQL.GetDataBaseInitialCatalog(ConnectionsSQL.choiceLocal.Local);
+                        this.Cursor = Cursors.Default;
+                        if ((initialCatalog.Count) == (0))
+                        {
+                            cboInitialCatalog.Items.Clear();
+                            cboInitialCatalog.Text = (String.Empty);
+                        }
+                        else
+                        {
+                            cboInitialCatalog.Items.Clear();
+                            cboInitialCatalog.Text = (String.Empty);
+                            cboInitialCatalog.Items.AddRange(initialCatalog.ToArray());
+                        };
+                    };
+                };
+            }
+            else if (rbtWindowsLocalIntegratedSecurity.Checked)
+            {
+                String tgsource = txtDataSource.Tag.ToString();
+                String dsource = txtDataSource.Text;
+                if (!String.IsNullOrEmpty(dsource))
+                {
+                   // backgroudShowProgessBar();
+                    if ((tgsource) != (dsource))
+                    {
+                        txtDataSource.Tag = (dsource);
+                        String[] stringDatas = new String[4];
+                        stringDatas[0] = (dsource);
+                        stringDatas[1] = ("master");
+                        stringDatas[2] = ("true");
+                        stringDatas[3] = ("1");
+                        ConnectionsConfig cnConfig = new ConnectionsConfig(
+                        stringDatas[0],
+                        stringDatas[1],
+                        stringDatas[2],
+                        stringDatas[3]);
+                        List<string> initialCatalog = new List<string>();
+                        initialCatalog.Clear();
+                      
+                        this.Cursor = Cursors.WaitCursor;
+                        initialCatalog = ConnectionsSQL.GetDataBaseInitialCatalog(ConnectionsSQL.choiceLocal.Local);
+                        this.Cursor = Cursors.Default;
+                        if ((initialCatalog.Count) == (0))
+                        {
+                            cboInitialCatalog.Items.Clear();
+                            cboInitialCatalog.Text = (String.Empty);
+                        }
+                        else
+                        {
+                            cboInitialCatalog.Items.Clear();
+                            cboInitialCatalog.Text = (String.Empty);
+                            cboInitialCatalog.Items.AddRange(initialCatalog.ToArray());
+                        };
+                     
+                    };
+                };
+            }
+            else
+            {
+                MessageBox.Show(
+                (String.Format("{0} \n{1}",
+                rbtServerSQLIntegratedSecurity.Text,
+                rbtWindowsLocalIntegratedSecurity.Text)),
+                ("Select the login type"));
+            };
+        }
+        private void cboInitialCatalog_Enter(object sender, EventArgs e)
+        {
+             ShowListDataBase();
+        }
+
+    
     }
     #endregion
 }

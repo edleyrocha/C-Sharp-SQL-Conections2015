@@ -65,8 +65,6 @@
         #endregion
 
         #region ---> ( Constructor )
-
-
         /// <summary>
         /// #Constructor method(simple)
         /// </summary>
@@ -82,7 +80,7 @@
             this.persistSecurityInfo = (String.Empty);
         }
         /// <summary>
-        /// #Constructor method(DB Windows Local)
+        /// #Constructor method(DB Windows Local * 4)
         /// </summary>
         public ConnectionsConfig(string DataSource, string InitialCatalog, string IntegratedSecurity, string ConnectTimeout)
         {
@@ -93,7 +91,7 @@
             SetWindowsLocalForConnectionsSQL();
         }
         /// <summary>
-        /// #Constructor method(DB Server SQL)
+        /// #Constructor method(DB Server SQL * 5)
         /// </summary>
         public ConnectionsConfig(string UserID, string Password, string DataSource, string InitialCatalog, string ConnectTimeout)
         {
