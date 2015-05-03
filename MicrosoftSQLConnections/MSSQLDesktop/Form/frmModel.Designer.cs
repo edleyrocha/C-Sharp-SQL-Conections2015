@@ -121,6 +121,7 @@
             // 
             // btnShowHide
             // 
+            this.btnShowHide.Enabled = false;
             this.btnShowHide.Location = new System.Drawing.Point(234, 55);
             this.btnShowHide.Name = "btnShowHide";
             this.btnShowHide.Size = new System.Drawing.Size(64, 23);
@@ -280,7 +281,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(341, 373);
+            this.ClientSize = new System.Drawing.Size(337, 369);
             this.ControlBox = false;
             this.Controls.Add(this.grpModelA);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

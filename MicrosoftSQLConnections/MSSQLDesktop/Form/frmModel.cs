@@ -110,7 +110,6 @@
 
             if ((!String.IsNullOrEmpty(stringDB)) && (btnReadAndTest.Text == ("Read")))
             {
-
                 rtbStrings.Text = (stringDB);
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r Get Settings Saved (stringSQLModel) ");
                 btnReadAndTest.Text = ("Test");
@@ -180,19 +179,18 @@
             if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)SelectOnOff.ON))
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r btnOnOff ---> ON");
-                cboConnectTimeout.Enabled = (!cboConnectTimeout.Enabled);
-                cboConnectTimeout.Text = (string.Empty);
+                cboConnectTimeout.Items.Clear();
                 btnOnOff.Tag = Convert.ToChar((int)SelectOnOff.OFF);
                 btnOnOff.Text = Convert.ToString((SelectOnOff)(Convert.ToInt32(btnOnOff.Tag)));
             }
             else if ((Convert.ToInt32(btnOnOff.Tag)) == ((int)SelectOnOff.OFF))
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r btnOnOff ---> OFF");
-                cboConnectTimeout.Enabled = (!cboConnectTimeout.Enabled);
                 cboConnectTimeout.Text = Convert.ToString(cboConnectTimeout.Items[((30) - (1))].ToString());
                 btnOnOff.Tag = Convert.ToChar((int)SelectOnOff.ON);
                 btnOnOff.Text = Convert.ToString((SelectOnOff)(Convert.ToInt32(btnOnOff.Tag)));
             }
+            cboConnectTimeout.Enabled = (!cboConnectTimeout.Enabled);
         }
         private void btnOnOff_Click(object sender, EventArgs e)
         {
@@ -211,11 +209,13 @@
             {
                 txtUserID.Enabled = (true);
                 txtPassword.Enabled = (true);
+                btnShowHide.Enabled = (true);
             }
             else if (rbtWindowsLocalIntegratedSecurity.Checked)
             {
                 txtUserID.Enabled = (false);
                 txtPassword.Enabled = (false);
+                btnShowHide.Enabled = (false);
             };
             MSSQLDesktop.Debugar.TypeDebugPrint("Status Login = " + Convert.ToString(txtUserID.Enabled));
         }
@@ -494,7 +494,6 @@
                 String dsource = txtDataSource.Text;
                 if (!String.IsNullOrEmpty(dsource))
                 {
-                   // backgroudShowProgessBar();
                     if ((tgsource) != (dsource))
                     {
                         txtDataSource.Tag = (dsource);
@@ -510,7 +509,6 @@
                         stringDatas[3]);
                         List<string> initialCatalog = new List<string>();
                         initialCatalog.Clear();
-                      
                         this.Cursor = Cursors.WaitCursor;
                         initialCatalog = ConnectionsSQL.GetDataBaseInitialCatalog(ConnectionsSQL.choiceLocal.Local);
                         this.Cursor = Cursors.Default;
@@ -525,7 +523,6 @@
                             cboInitialCatalog.Text = (String.Empty);
                             cboInitialCatalog.Items.AddRange(initialCatalog.ToArray());
                         };
-                     
                     };
                 };
             }

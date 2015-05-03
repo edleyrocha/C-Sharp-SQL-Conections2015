@@ -188,12 +188,6 @@
             {
                 MSSQLDesktop.Debugar.TypeDebugPrint("\r ERROR GetDataBaseInitialCatalog\n" + (e.ToString()));
             }
-
-
-            //returnInitialCatalog.Add("1");
-            //returnInitialCatalog.Add("2");
-            //returnInitialCatalog.Add("3");
-            //returnInitialCatalog.Add("4");
             connectionSQL.Close();
             MSSQLDesktop.Debugar.TypeDebugPrint("\r End GetDataBaseInitialCatalog");
             return returnInitialCatalog;
